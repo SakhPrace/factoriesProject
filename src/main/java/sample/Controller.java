@@ -22,6 +22,7 @@ public class Controller {
 
     @FXML
     private void buttonCloseOnAction (ActionEvent event) {
+        System.out.println("Close");
         stageMain.close();
     }
 
