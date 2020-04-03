@@ -1,0 +1,9 @@
+target/
+lib/
+src/main/resources/hibernate.cfg.xml
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
