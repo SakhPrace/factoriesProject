@@ -6,11 +6,11 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateSessionFactoryUtil {
-    private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory = buildSessionFactory();
 
     private HibernateSessionFactoryUtil() {}
 
-    public static SessionFactory getSessionFactory() {
+    public static SessionFactory buildSessionFactory() {
         if (sessionFactory == null) {
             try {
                 Configuration configuration = new Configuration().configure();
@@ -23,5 +23,14 @@ public class HibernateSessionFactoryUtil {
             }
         }
         return sessionFactory;
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+
+    public static void shutdown() {
+        // Close caches and connection pools
+        getSessionFactory().close();
     }
 }
