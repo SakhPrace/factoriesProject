@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import sample.entities.FactoryEntity;
 import sample.entityManegers.FactoryEntityManager;
+import sample.services.FactoryService;
+import sample.services.FactoryServiceInterface;
 
 
 import java.beans.EventHandler;
@@ -35,12 +37,11 @@ public class Controller {
 
     @FXML
     private void initialize() {
-        ObservableList<String> langs = FXCollections.observableArrayList();
-        FactoryEntity factoryEntity = FactoryEntityManager.loadById(0);
-        langs.add(factoryEntity.getName());
-        listView.setItems(langs);
+
     }
 
     public Controller(){
+        FactoryServiceInterface factoryService = new FactoryService();
+
     }
 }

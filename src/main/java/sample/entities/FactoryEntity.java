@@ -63,4 +63,9 @@ public class FactoryEntity {
         result = 31 * result + (exportid != null ? exportid.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
