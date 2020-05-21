@@ -12,12 +12,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class FactoryService implements FactoryServiceInterface{
 
-    @Autowired
+    @Autowired(required = true)
     private FactoryRepository repository;
 
     @Override
-    public Optional<FactoryEntity> findEntityById(Long id) {
-        Optional<FactoryEntity> factoryEntity = repository.findById(id);
+    public FactoryEntity findEntityById(Integer id) {
+        FactoryEntity factoryEntity = repository.findById(id).get();
         return factoryEntity;
+    }
+
+    @Override
+    public void save(FactoryEntity factoryEntity) {
+        repository.save(factoryEntity);
     }
 }
