@@ -13,7 +13,6 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sample.entities.FactoryEntity;
-import sample.entityManegers.FactoryEntityManager;
 import sample.services.FactoryService;
 import sample.services.FactoryServiceInterface;
 
