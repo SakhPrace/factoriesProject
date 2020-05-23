@@ -3,7 +3,7 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "factory", schema = "factories", catalog = "factories")
+@Table(name = "factory", schema = "public", catalog = "factories")
 public class FactoryEntity {
     private int id;
     private String name;
@@ -30,7 +30,7 @@ public class FactoryEntity {
     }
 
     @Basic
-    @Column(name = "export_id", nullable = false)
+    @Column(name = "exportid", nullable = false)
     public int getExportId() {
         return exportId;
     }
