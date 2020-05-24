@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class FactoryEntity {
     private int id;
     private String name;
-    private Integer exportid;
+    private int exportId;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -20,7 +20,7 @@ public class FactoryEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = -1)
+    @Column(name = "name", nullable = false, length = -1)
     public String getName() {
         return name;
     }
@@ -30,16 +30,13 @@ public class FactoryEntity {
     }
 
     @Basic
-    @Column(name = "exportid", nullable = true)
-    public Integer getExportid() {
-        return exportid;
+    @Column(name = "exportid", nullable = false)
+    public int getExportId() {
+        return exportId;
     }
 
-    public void setExportid(Integer exportid) {
-        this.exportid = exportid;
-    }
-
-    public FactoryEntity() {
+    public void setExportId(int exportId) {
+        this.exportId = exportId;
     }
 
     @Override
@@ -50,8 +47,8 @@ public class FactoryEntity {
         FactoryEntity that = (FactoryEntity) o;
 
         if (id != that.id) return false;
+        if (exportId != that.exportId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (exportid != null ? !exportid.equals(that.exportid) : that.exportid != null) return false;
 
         return true;
     }
@@ -60,12 +57,7 @@ public class FactoryEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (exportid != null ? exportid.hashCode() : 0);
+        result = 31 * result + exportId;
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();
     }
 }
