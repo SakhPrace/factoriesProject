@@ -3,11 +3,11 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "factory", schema = "public", catalog = "postgres")
-public class FactoryEntity {
+@Table(name = "transport_operator", schema = "public", catalog = "postgres")
+public class TransportOperatorEntity {
     private int id;
     private String name;
-    private int exportId;
+    private int pricePerUnit;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -30,13 +30,13 @@ public class FactoryEntity {
     }
 
     @Basic
-    @Column(name = "exportid", nullable = false)
-    public int getExportId() {
-        return exportId;
+    @Column(name = "price_per_unit", nullable = false)
+    public int getPricePerUnit() {
+        return pricePerUnit;
     }
 
-    public void setExportId(int exportId) {
-        this.exportId = exportId;
+    public void setPricePerUnit(int pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
     }
 
     @Override
@@ -44,10 +44,10 @@ public class FactoryEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FactoryEntity that = (FactoryEntity) o;
+        TransportOperatorEntity that = (TransportOperatorEntity) o;
 
         if (id != that.id) return false;
-        if (exportId != that.exportId) return false;
+        if (pricePerUnit != that.pricePerUnit) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
 
         return true;
@@ -57,7 +57,7 @@ public class FactoryEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + exportId;
+        result = 31 * result + pricePerUnit;
         return result;
     }
 }
