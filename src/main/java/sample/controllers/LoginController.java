@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -23,27 +25,35 @@ import sample.services.FactoryServiceInterface;
 import java.beans.EventHandler;
 import java.util.Optional;
 @Component
-@FxmlView("main.fxml")
-public class Controller {
+@FxmlView("login.fxml")
+public class LoginController {
 
     @FXML
     AnchorPane anchorPane;
     @FXML
     private Button buttonClose;
     @FXML
-    private ListView listView;
-    @FXML
     private Button buttonFactoryOpenTest;
     @FXML
     private Button buttonTransporterOpenTest;
+    @FXML
+    private Button buttonLogin;
+    @FXML
+    private TextField textFieldUsername;
+    @FXML
+    private TextField textFieldPassword;
+    @FXML
+    private Label labelUsername;
+    @FXML
+    private Label labelPassword;
 
     @Autowired
     FactoryServiceInterface factoryService;
 
     @FXML
     private void buttonCloseOnAction(ActionEvent event) {
-        System.out.println("Close");
-        //stageMain.close();
+        Stage stage = (Stage) buttonClose.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -69,26 +79,15 @@ public class Controller {
     }
 
     @FXML
+    private void buttonLoginOnAction(ActionEvent event) {
+    }
+
+    @FXML
     private void initialize() {
-
-/*
-        FactoryEntity factoryEntity = new FactoryEntity();
-        factoryEntity.setId(0);
-        factoryEntity.setName("AAA");
-        factoryEntity.setExportid(0);
-        factoryService.save(factoryEntity);
-
- */
-
-        ObservableList<String> langs = FXCollections.observableArrayList();
-        FactoryEntity factoryEntity1 = factoryService.findEntityById(Integer.valueOf(0));
-        langs.add(factoryEntity1.getName());
-        listView.setItems(langs);
-
 
     }
 
-    public Controller(){
+    public LoginController(){
 
     }
 }

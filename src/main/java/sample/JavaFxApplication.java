@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import sample.controllers.Controller;
+import sample.controllers.LoginController;
 
 public class JavaFxApplication extends Application {
 
@@ -33,7 +33,7 @@ public class JavaFxApplication extends Application {
     @Override
     public void start(Stage stage) {
         fxWeaver = applicationContext.getBean(FxWeaver.class);
-        Parent root = fxWeaver.loadView(Controller.class);
+        Parent root = fxWeaver.loadView(LoginController.class);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
