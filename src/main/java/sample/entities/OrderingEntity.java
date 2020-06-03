@@ -3,7 +3,7 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order", schema = "public", catalog = "postgres")
+@Table(name = "ordering", schema = "public", catalog = "postgres")
 public class OrderingEntity {
     private int id;
     private int idFactory;
