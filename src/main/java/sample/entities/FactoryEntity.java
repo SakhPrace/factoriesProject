@@ -8,6 +8,7 @@ public class FactoryEntity {
     private int id;
     private String name;
     private int exportId;
+    private String password;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -39,6 +40,16 @@ public class FactoryEntity {
         this.exportId = exportId;
     }
 
+    @Basic
+    @Column(name = "password", nullable = false, length = -1)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +60,7 @@ public class FactoryEntity {
         if (id != that.id) return false;
         if (exportId != that.exportId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
     }
@@ -57,6 +69,7 @@ public class FactoryEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + exportId;
         return result;
     }

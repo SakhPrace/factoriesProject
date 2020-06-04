@@ -1,5 +1,6 @@
 package sample.services;
 
+import sample.entities.FactoryEntity;
 import sample.entities.TransportOperatorEntity;
 import sample.repositories.TransportOperatorRepository;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,11 @@ public class TransportOperatorService implements TransportOperatorServiceInterfa
     public TransportOperatorEntity findEntityById(Integer id) {
         TransportOperatorEntity TransportOperatorEntity = repository.findById(id).get();
         return TransportOperatorEntity;
+    }
+
+    public TransportOperatorEntity findEntityByName(String name) {
+        TransportOperatorEntity transportOperatorEntity = repository.getTransportOperatorEntityByName(name);
+        return transportOperatorEntity;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ProductEntity {
     }
 
     @Basic
-    @Column(name = "price (per unit)", nullable = false)
+    @Column(name = "price_per_unit)", nullable = false)
     public int getPricePerUnit() {
         return pricePerUnit;
     }
