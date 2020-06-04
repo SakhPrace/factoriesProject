@@ -2,18 +2,20 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="481.0" prefWidth="444.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.LoginController">
+<AnchorPane fx:id="anchorPane" prefHeight="200.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.LoginController">
    <children>
-         <Button fx:id="buttonClose" layoutY="456.0" mnemonicParsing="false" onAction="#buttonCloseOnAction" text="Close" />
-      <Button fx:id="buttonFactoryOpenTest" layoutX="19.0" layoutY="51.0" mnemonicParsing="false" onAction="#buttonFactoryOpenTestOnAction" text="Factory Open Test" />
-      <Button fx:id="buttonTransporterOpenTest" layoutX="19.0" layoutY="117.0" mnemonicParsing="false" onAction="#buttonTransporterOpenTestOnAction" prefHeight="25.0" prefWidth="113.0" text="Transporter Open Test" />
-      <TextField fx:id="textFieldUsername" layoutX="172.0" layoutY="241.0" promptText="Username" />
-      <TextField fx:id="textFieldPassword" layoutX="172.0" layoutY="284.0" promptText="Password" />
-      <Label fx:id="labelUsername" layoutX="110.0" layoutY="245.0" text="Username" />
-      <Label fx:id="labelPassword" layoutX="112.0" layoutY="288.0" text="Password" />
-      <Button fx:id="buttonLogin" layoutX="269.0" layoutY="329.0" mnemonicParsing="false" onAction="#buttonLoginOnAction" text="Login" />
+      <RadioButton fx:id="radioButtonTransporter" layoutX="144.0" layoutY="34.0" mnemonicParsing="false" onAction="#radioButtonTransporterOnAction" text="As Transporter" />
+         <Button fx:id="buttonClose" layoutX="57.0" layoutY="161.0" mnemonicParsing="false" onAction="#buttonCloseOnAction" text="Close" />
+      <TextField fx:id="textFieldUsername" layoutX="119.0" layoutY="73.0" promptText="Username" />
+      <TextField fx:id="textFieldPassword" layoutX="119.0" layoutY="116.0" promptText="Password" />
+      <Label fx:id="labelUsername" layoutX="57.0" layoutY="77.0" text="Username" />
+      <Label fx:id="labelPassword" layoutX="59.0" layoutY="120.0" text="Password" />
+      <Button fx:id="buttonLogin" layoutX="216.0" layoutY="161.0" mnemonicParsing="false" onAction="#buttonLoginOnAction" text="Login" />
+      <RadioButton fx:id="radioButtonFactory" layoutX="57.0" layoutY="34.0" mnemonicParsing="false" onAction="#radioButtonFactoryOnAction" selected="true" text="As Factory" />
+      <Label layoutX="95.0" layoutY="6.0" text="Please, login is system" />
    </children>
 </AnchorPane>

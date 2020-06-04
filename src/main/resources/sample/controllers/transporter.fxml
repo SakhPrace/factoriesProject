@@ -5,11 +5,12 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.TransporterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="319.0" prefWidth="406.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.TransporterController">
    <children>
-      <Button fx:id="buttonShowAcceptedOrders" layoutX="20.0" layoutY="282.0" mnemonicParsing="false" onAction="#buttonShowAcceptedOrdersOnAction" prefHeight="25.0" prefWidth="153.0" text="Show Accepted Oreders" />
-      <Button fx:id="buttonShowOrders" layoutX="20.0" layoutY="230.0" mnemonicParsing="false" onAction="#buttonShowOrdersOnAction" prefHeight="25.0" prefWidth="153.0" text="Show Orders" />
+      <Button fx:id="buttonShowAcceptedOrders" layoutX="14.0" layoutY="212.0" mnemonicParsing="false" onAction="#buttonShowAcceptedOrdersOnAction" prefHeight="25.0" prefWidth="153.0" text="Show Accepted Oreders" />
+      <Button fx:id="buttonShowOrders" layoutX="14.0" layoutY="160.0" mnemonicParsing="false" onAction="#buttonShowOrdersOnAction" prefHeight="25.0" prefWidth="153.0" text="Show Orders" />
       <Label fx:id="labelOrders" layoutX="309.0" layoutY="21.0" prefHeight="17.0" prefWidth="192.0" />
-      <ListView fx:id="listViewOrders" layoutX="326.0" layoutY="55.0" prefHeight="320.0" prefWidth="200.0" />
+      <ListView fx:id="listViewOrders" layoutX="194.0" layoutY="40.0" prefHeight="266.0" prefWidth="200.0" />
+      <Button fx:id="buttonLogOut" layoutX="14.0" layoutY="265.0" mnemonicParsing="false" onAction="#buttonLogOutOnAction" prefHeight="25.0" prefWidth="153.0" text="Log Out" />
    </children>
 </AnchorPane>

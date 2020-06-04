@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class OrderingService implements OrderingServiceInterface {
 
@@ -16,6 +18,10 @@ public class OrderingService implements OrderingServiceInterface {
     public OrderingEntity findEntityById(Integer id) {
         OrderingEntity orderingEntity = repository.findById(id).get();
         return orderingEntity;
+    }
+
+    public List<OrderingEntity> findEntitiesByFactoryId(Integer factoryId) {
+        return repository.getOrderingEntitiesByFactoryId(factoryId);
     }
 
     @Override

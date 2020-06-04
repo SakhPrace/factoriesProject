@@ -21,6 +21,11 @@ public class FactoryService implements FactoryServiceInterface{
         return factoryEntity;
     }
 
+    public FactoryEntity findEntityByName(String name) {
+        FactoryEntity factoryEntity = repository.getFactoryEntityByName(name);
+        return factoryEntity;
+    }
+
     @Override
     public void save(FactoryEntity factoryEntity) {
         repository.save(factoryEntity);

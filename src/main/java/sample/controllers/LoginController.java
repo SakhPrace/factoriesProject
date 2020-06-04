@@ -1,13 +1,8 @@
 package sample.controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
@@ -17,25 +12,18 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sample.JavaFxApplication;
-import sample.entities.FactoryEntity;
-import sample.services.FactoryService;
+import sample.Security;
 import sample.services.FactoryServiceInterface;
+import sample.services.TransportOperatorServiceInterface;
 
-
-import java.beans.EventHandler;
-import java.util.Optional;
 @Component
 @FxmlView("login.fxml")
 public class LoginController {
 
     @FXML
-    AnchorPane anchorPane;
+    private AnchorPane anchorPane;
     @FXML
     private Button buttonClose;
-    @FXML
-    private Button buttonFactoryOpenTest;
-    @FXML
-    private Button buttonTransporterOpenTest;
     @FXML
     private Button buttonLogin;
     @FXML
@@ -46,9 +34,16 @@ public class LoginController {
     private Label labelUsername;
     @FXML
     private Label labelPassword;
+    @FXML
+    private RadioButton radioButtonFactory;
+    @FXML
+    private RadioButton radioButtonTransporter;
 
     @Autowired
     FactoryServiceInterface factoryService;
+
+    @Autowired
+    TransportOperatorServiceInterface transportOperatorService;
 
     @FXML
     private void buttonCloseOnAction(ActionEvent event) {
@@ -57,29 +52,57 @@ public class LoginController {
     }
 
     @FXML
-    private void buttonFactoryOpenTestOnAction(ActionEvent event){
-        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
-        Parent root = fxWeaver.loadView(FactoryController.class);
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        buttonFactoryOpenTest.setDisable(true);
-        stage.show();
-    }
-
-    @FXML
-    private void buttonTransporterOpenTestOnAction(ActionEvent event) {
-        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
-        Parent root = fxWeaver.loadView(TransporterController.class);
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        buttonTransporterOpenTest.setDisable(true);
-        stage.show();
-    }
-
-    @FXML
     private void buttonLoginOnAction(ActionEvent event) {
+        Security security = new Security();
+        anchorPane.setDisable(true);
+        if (radioButtonFactory.isSelected() && !radioButtonTransporter.isSelected()) {
+            try {
+                Boolean passwordCheck = security.passwordCheckForFactory(factoryService, textFieldUsername.getText(), textFieldPassword.getText());
+                if (passwordCheck) {
+                    FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                    Parent root = fxWeaver.loadView(FactoryController.class);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle(textFieldUsername.getText());
+                    stage.show();
+                    buttonCloseOnAction(new ActionEvent());
+                } else {showAlertWithoutHeaderText(); }
+            } catch (Exception e) {
+                showAlertWithoutHeaderText();
+                System.out.println(e.fillInStackTrace());
+            }
+        } else if(!radioButtonFactory.isSelected() && radioButtonTransporter.isSelected()) {
+            try {
+                Boolean passwordCheck = security.passwordCheckForTransporter(transportOperatorService, textFieldUsername.getText(), textFieldPassword.getText());
+                if (passwordCheck) {
+                    FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                    Parent root = fxWeaver.loadView(TransporterController.class);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle(textFieldUsername.getText());
+                    stage.show();
+                    buttonCloseOnAction(new ActionEvent());
+                } else {showAlertWithoutHeaderText();}
+            } catch (Exception e) {
+                showAlertWithoutHeaderText();
+                System.out.println(e.fillInStackTrace());
+            }
+        }
+
+    }
+
+    @FXML
+    private void radioButtonFactoryOnAction(ActionEvent event) {
+        radioButtonFactory.setSelected(true);
+        radioButtonTransporter.setSelected(false);
+    }
+
+    @FXML
+    private void radioButtonTransporterOnAction(ActionEvent event) {
+        radioButtonFactory.setSelected(false);
+        radioButtonTransporter.setSelected(true);
     }
 
     @FXML
@@ -89,5 +112,13 @@ public class LoginController {
 
     public LoginController(){
 
+    }
+
+    private void showAlertWithoutHeaderText() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Login Information");
+        alert.setContentText("Incorrect Username or Password!");
+        alert.showAndWait();
+        anchorPane.setDisable(false);
     }
 }

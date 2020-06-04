@@ -9,4 +9,6 @@ public interface FactoryServiceInterface {
     FactoryEntity findEntityById(Integer id);
 
     void save(FactoryEntity factoryEntity);
+
+    FactoryEntity findEntityByName(String name);
 }
