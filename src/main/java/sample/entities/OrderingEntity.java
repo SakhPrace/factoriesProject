@@ -8,6 +8,7 @@ public class OrderingEntity {
     private int id;
     private int idFactory;
     private int idProduct;
+    private int idTransportOperator;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -39,6 +40,16 @@ public class OrderingEntity {
         this.idProduct = idProduct;
     }
 
+    @Basic
+    @Column(name = "id_transport", nullable = false)
+    public int getIdTransportOperator() {
+        return idTransportOperator;
+    }
+
+    public void setIdTransportOperator(int idTransportOperator) {
+        this.idTransportOperator = idTransportOperator;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +60,7 @@ public class OrderingEntity {
         if (id != that.id) return false;
         if (idFactory != that.idFactory) return false;
         if (idProduct != that.idProduct) return false;
+        if (idTransportOperator != that.idTransportOperator) return false;
 
         return true;
     }
@@ -58,6 +70,7 @@ public class OrderingEntity {
         int result = id;
         result = 31 * result + idFactory;
         result = 31 * result + idProduct;
+        result = 31 * result + idTransportOperator;
         return result;
     }
 }
