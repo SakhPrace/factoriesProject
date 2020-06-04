@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="229.0" prefWidth="288.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.Ordering">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Material:" />
+      <Label layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" text="Customer" />
+      <Label layoutX="14.0" layoutY="63.0" prefHeight="17.0" prefWidth="72.0" text="Transporter" />
+      <Label fx:id="labelMaterial" layoutX="95.0" layoutY="14.0" prefHeight="17.0" prefWidth="55.0" />
+      <Label fx:id="labelCustomer" layoutX="95.0" layoutY="39.0" prefHeight="17.0" prefWidth="55.0" />
+      <Label fx:id="labelTransporter" layoutX="95.0" layoutY="63.0" prefHeight="17.0" prefWidth="55.0" />
+   </children>
+</AnchorPane>

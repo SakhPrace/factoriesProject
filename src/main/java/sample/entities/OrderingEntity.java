@@ -8,7 +8,7 @@ public class OrderingEntity {
     private int id;
     private int idFactory;
     private int idProduct;
-    private int idTransportOperator;
+    private Integer idTransportOperator;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -41,12 +41,12 @@ public class OrderingEntity {
     }
 
     @Basic
-    @Column(name = "id_transport", nullable = false)
-    public int getIdTransportOperator() {
+    @Column(name = "id_transport", nullable = true)
+    public Integer getIdTransportOperator() {
         return idTransportOperator;
     }
 
-    public void setIdTransportOperator(int idTransportOperator) {
+    public void setIdTransportOperator(Integer idTransportOperator) {
         this.idTransportOperator = idTransportOperator;
     }
 
@@ -60,7 +60,7 @@ public class OrderingEntity {
         if (id != that.id) return false;
         if (idFactory != that.idFactory) return false;
         if (idProduct != that.idProduct) return false;
-        if (idTransportOperator != that.idTransportOperator) return false;
+        if (!idTransportOperator.equals(that.idTransportOperator)) return false;
 
         return true;
     }
@@ -70,7 +70,7 @@ public class OrderingEntity {
         int result = id;
         result = 31 * result + idFactory;
         result = 31 * result + idProduct;
-        result = 31 * result + idTransportOperator;
+        result = 31 * result + idTransportOperator.hashCode();
         return result;
     }
 }

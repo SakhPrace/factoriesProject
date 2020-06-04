@@ -20,8 +20,12 @@ public class OrderingService implements OrderingServiceInterface {
         return orderingEntity;
     }
 
-    public List<OrderingEntity> findEntitiesByFactoryId(Integer factoryId) {
-        return repository.getOrderingEntitiesByFactoryId(factoryId);
+    public List<OrderingEntity> findEntitiesByFactoryIdWithTransport(Integer factoryId) {
+        return repository.getOrderingEntitiesByFactoryIdWithTransport(factoryId);
+    }
+
+    public List<OrderingEntity> findEntitiesByFactoryIdWithoutTransport(Integer factoryId) {
+        return repository.getOrderingEntitiesByFactoryIdWithoutTransport(factoryId);
     }
 
     @Override
