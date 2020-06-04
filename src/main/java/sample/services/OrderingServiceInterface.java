@@ -8,7 +8,9 @@ public interface OrderingServiceInterface {
 
     OrderingEntity findEntityById(Integer id);
 
-    public List<OrderingEntity> findEntitiesByFactoryId(Integer factoryId);
+    List<OrderingEntity> findEntitiesByFactoryIdWithTransport(Integer factoryId);
+
+    List<OrderingEntity> findEntitiesByFactoryIdWithoutTransport(Integer factoryId);
 
     void save(OrderingEntity orderingEntity);
 }

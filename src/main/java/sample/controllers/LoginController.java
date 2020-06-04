@@ -1,5 +1,6 @@
 package sample.controllers;
 
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -7,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.stage.WindowEvent;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class LoginController {
     @FXML
     private TextField textFieldUsername;
     @FXML
-    private TextField textFieldPassword;
+    private TextField passwordField;
     @FXML
     private Label labelUsername;
     @FXML
@@ -57,14 +59,14 @@ public class LoginController {
         anchorPane.setDisable(true);
         if (radioButtonFactory.isSelected() && !radioButtonTransporter.isSelected()) {
             try {
-                Boolean passwordCheck = security.passwordCheckForFactory(factoryService, textFieldUsername.getText(), textFieldPassword.getText());
+                Boolean passwordCheck = security.passwordCheckForFactory(factoryService, textFieldUsername.getText(), passwordField.getText());
                 if (passwordCheck) {
                     FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
                     Parent root = fxWeaver.loadView(FactoryController.class);
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
-                    stage.setScene(scene);
                     stage.setTitle(textFieldUsername.getText());
+                    stage.setScene(scene);
                     stage.show();
                     buttonCloseOnAction(new ActionEvent());
                 } else {showAlertWithoutHeaderText(); }
@@ -74,7 +76,7 @@ public class LoginController {
             }
         } else if(!radioButtonFactory.isSelected() && radioButtonTransporter.isSelected()) {
             try {
-                Boolean passwordCheck = security.passwordCheckForTransporter(transportOperatorService, textFieldUsername.getText(), textFieldPassword.getText());
+                Boolean passwordCheck = security.passwordCheckForTransporter(transportOperatorService, textFieldUsername.getText(), passwordField.getText());
                 if (passwordCheck) {
                     FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
                     Parent root = fxWeaver.loadView(TransporterController.class);
