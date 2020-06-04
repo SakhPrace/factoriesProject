@@ -29,3 +29,12 @@ INSERT INTO ordering(id, id_factory, id_product) VALUES(5, 4, 1);
 INSERT INTO ordering(id, id_factory, id_product) VALUES(6, 4, 2);
 INSERT INTO ordering(id, id_factory, id_product) VALUES(7, 2, 1);
 
+DELETE FROM auction;
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(0, 1, 1000,0);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 2000,0);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 3, 500,4);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(3, 4, 4000,3);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(4, 5, 100,2);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(5, 4, 1500,1);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(6, 4, 2500,2);
+INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(7, 2, 160,2);
