@@ -21,7 +21,7 @@ import sample.services.TransportOperatorServiceInterface;
 public class LoginController {
 
     @FXML
-    AnchorPane anchorPane;
+    private AnchorPane anchorPane;
     @FXML
     private Button buttonClose;
     @FXML
@@ -57,16 +57,21 @@ public class LoginController {
         anchorPane.setDisable(true);
         if (radioButtonFactory.isSelected() && !radioButtonTransporter.isSelected()) {
             try {
-            Boolean passwordCheck = security.passwordCheckForFactory(factoryService, textFieldUsername.getText(), textFieldPassword.getText());
-            if (passwordCheck) {
-                FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
-                Parent root = fxWeaver.loadView(FactoryController.class);
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.show();
-            } else {showAlertWithoutHeaderText();}
-            } catch (Exception e) {showAlertWithoutHeaderText();}
+                Boolean passwordCheck = security.passwordCheckForFactory(factoryService, textFieldUsername.getText(), textFieldPassword.getText());
+                if (passwordCheck) {
+                    FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                    Parent root = fxWeaver.loadView(FactoryController.class);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle(textFieldUsername.getText());
+                    stage.show();
+                    buttonCloseOnAction(new ActionEvent());
+                } else {showAlertWithoutHeaderText(); }
+            } catch (Exception e) {
+                showAlertWithoutHeaderText();
+                System.out.println(e.fillInStackTrace());
+            }
         } else if(!radioButtonFactory.isSelected() && radioButtonTransporter.isSelected()) {
             try {
                 Boolean passwordCheck = security.passwordCheckForTransporter(transportOperatorService, textFieldUsername.getText(), textFieldPassword.getText());
@@ -76,13 +81,17 @@ public class LoginController {
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
                     stage.setScene(scene);
+                    stage.setTitle(textFieldUsername.getText());
                     stage.show();
+                    buttonCloseOnAction(new ActionEvent());
                 } else {showAlertWithoutHeaderText();}
-            } catch (Exception e) {showAlertWithoutHeaderText();}
+            } catch (Exception e) {
+                showAlertWithoutHeaderText();
+                System.out.println(e.fillInStackTrace());
+            }
         }
 
     }
-
 
     @FXML
     private void radioButtonFactoryOnAction(ActionEvent event) {
