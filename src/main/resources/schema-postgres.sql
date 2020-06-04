@@ -20,11 +20,19 @@ CREATE TABLE IF NOT EXISTS ordering (
 id serial PRIMARY KEY,
 id_factory integer,
 id_product integer,
-id_transport integer
+id_transport integer,
+price integer
 );
 CREATE TABLE IF NOT EXISTS auction (
 id serial PRIMARY KEY,
 id_order integer,
 offered_price integer,
 id_transporter integer
+);
+
+CREATE TABLE IF NOT EXISTS factory_product (
+    factory_id INT PRIMARY KEY,
+    product_id INT,
+    FOREIGN KEY (factory_id) REFERENCES factory(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
 );
