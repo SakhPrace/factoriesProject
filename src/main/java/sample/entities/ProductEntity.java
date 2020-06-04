@@ -60,4 +60,7 @@ public class ProductEntity {
         result = 31 * result + pricePerUnit;
         return result;
     }
+
+    @OneToOne (optional=false, mappedBy="product")
+    private FactoryEntity factory;
 }
