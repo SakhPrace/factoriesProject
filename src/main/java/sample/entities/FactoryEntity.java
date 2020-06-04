@@ -73,4 +73,8 @@ public class FactoryEntity {
         result = 31 * result + exportId;
         return result;
     }
+
+    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name="exportId")
+    private ProductEntity product;
 }
