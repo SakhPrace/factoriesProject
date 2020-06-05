@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS auction (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
 id_order integer UNIQUE not null ,
 offered_price integer,
-id_transporter integer
+id_transporter integer,
+FOREIGN KEY (id_order) REFERENCES ordering(id),
+FOREIGN KEY (id_transporter) REFERENCES transport_operator(id)
 );
 
 CREATE TABLE IF NOT EXISTS factory_product (

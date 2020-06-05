@@ -33,4 +33,3 @@ INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(8, 
 DELETE FROM maindb.auction;
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 3800, 1);
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 6, 3000, 3);
-SET foreign_key_checks = 1;
