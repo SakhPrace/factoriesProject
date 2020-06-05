@@ -42,3 +42,15 @@ id_transporter integer,
 FOREIGN KEY (id_order) REFERENCES ordering(id),
 FOREIGN KEY (id_transporter) REFERENCES transport_operator(id)
 );
+CREATE TABLE IF NOT EXISTS order_auction (
+order_id INT PRIMARY KEY,
+auction_id INT,
+FOREIGN KEY (order_id) REFERENCES factory(id),
+FOREIGN KEY (auction_id) REFERENCES auction(id)
+);
+CREATE TABLE IF NOT EXISTS transporter_auction (
+transporter_id INT PRIMARY KEY,
+auction_id INT,
+FOREIGN KEY (transporter_id) REFERENCES transport_operator(id),
+FOREIGN KEY (auction_id) REFERENCES auction(id)
+);
