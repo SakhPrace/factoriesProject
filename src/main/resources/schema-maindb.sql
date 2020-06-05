@@ -43,7 +43,7 @@ FOREIGN KEY (factory_id) REFERENCES factory(id),
 FOREIGN KEY (product_id) REFERENCES product(id)
 );
 
-/*INSTALL SONAME 'ha_oqgraph';
+/* INSTALL SONAME 'ha_oqgraph';
 CREATE TABLE IF NOT EXISTS oq2_backing (
 origid INT UNSIGNED NOT NULL,
 destid INT UNSIGNED NOT NULL,
@@ -65,4 +65,4 @@ KEY (latch, destid, origid) USING HASH
 )
 
 ENGINE=OQGRAPH
-data_table='oq2_backing' origid='origid' destid='destid' weight='weight';*/
+data_table='oq2_backing' origid='origid' destid='destid' weight='weight'; */
