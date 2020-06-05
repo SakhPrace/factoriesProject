@@ -22,7 +22,10 @@ id integer not null AUTO_INCREMENT PRIMARY KEY,
 id_factory integer,
 id_product integer,
 id_transport integer,
-price integer
+price integer,
+FOREIGN KEY (id_factory) REFERENCES factory(id),
+FOREIGN KEY (id_product) REFERENCES product(id),
+FOREIGN KEY (id_transport) REFERENCES transport_operator(id)
 );
 CREATE TABLE IF NOT EXISTS auction (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
@@ -32,15 +35,8 @@ id_transporter integer
 );
 
 CREATE TABLE IF NOT EXISTS factory_product (
-    factory_id integer not null,
-    product_id integer not null,
-    CONSTRAINT fk_factory_product_factory FOREIGN KEY (factory_id) REFERENCES factory(id),
-    CONSTRAINT fk_factory_product_product FOREIGN KEY (product_id) REFERENCES product(id)
-);
-
-CREATE TABLE IF NOT EXISTS factory_ordering (
-    factory_id integer not null,
-    ordering_id integer not null,
-    CONSTRAINT fk_factory_ordering_factory FOREIGN KEY (factory_id) REFERENCES factory(id),
-    CONSTRAINT fk_factory_ordering_product FOREIGN KEY (ordering_id) REFERENCES ordering(id)
+factory_id INT PRIMARY KEY,
+product_id INT,
+FOREIGN KEY (factory_id) REFERENCES factory(id),
+FOREIGN KEY (product_id) REFERENCES product(id)
 );

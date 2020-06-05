@@ -6,10 +6,10 @@ import javax.persistence.*;
 @Table(name = "ordering", schema = "maindb", catalog = "")
 public class OrderingEntity {
     private int id;
-    private Integer idFactory;
-    private Integer idProduct;
-    private Integer idTransport;
     private Integer price;
+    private FactoryEntity factoryByIdFactory;
+    private ProductEntity productByIdProduct;
+    private TransportOperatorEntity transportOperatorByIdTransport;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -19,36 +19,6 @@ public class OrderingEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "id_factory", nullable = true)
-    public Integer getIdFactory() {
-        return idFactory;
-    }
-
-    public void setIdFactory(Integer idFactory) {
-        this.idFactory = idFactory;
-    }
-
-    @Basic
-    @Column(name = "id_product", nullable = true)
-    public Integer getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(Integer idProduct) {
-        this.idProduct = idProduct;
-    }
-
-    @Basic
-    @Column(name = "id_transport", nullable = true)
-    public Integer getIdTransport() {
-        return idTransport;
-    }
-
-    public void setIdTransport(Integer idTransport) {
-        this.idTransport = idTransport;
     }
 
     @Basic
@@ -69,9 +39,6 @@ public class OrderingEntity {
         OrderingEntity that = (OrderingEntity) o;
 
         if (id != that.id) return false;
-        if (idFactory != null ? !idFactory.equals(that.idFactory) : that.idFactory != null) return false;
-        if (idProduct != null ? !idProduct.equals(that.idProduct) : that.idProduct != null) return false;
-        if (idTransport != null ? !idTransport.equals(that.idTransport) : that.idTransport != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
         return true;
@@ -80,10 +47,37 @@ public class OrderingEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (idFactory != null ? idFactory.hashCode() : 0);
-        result = 31 * result + (idProduct != null ? idProduct.hashCode() : 0);
-        result = 31 * result + (idTransport != null ? idTransport.hashCode() : 0);
         result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_factory", referencedColumnName = "id")
+    public FactoryEntity getFactoryByIdFactory() {
+        return factoryByIdFactory;
+    }
+
+    public void setFactoryByIdFactory(FactoryEntity factoryByIdFactory) {
+        this.factoryByIdFactory = factoryByIdFactory;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_product", referencedColumnName = "id")
+    public ProductEntity getProductByIdProduct() {
+        return productByIdProduct;
+    }
+
+    public void setProductByIdProduct(ProductEntity productByIdProduct) {
+        this.productByIdProduct = productByIdProduct;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "id_transport", referencedColumnName = "id")
+    public TransportOperatorEntity getTransportOperatorByIdTransport() {
+        return transportOperatorByIdTransport;
+    }
+
+    public void setTransportOperatorByIdTransport(TransportOperatorEntity transportOperatorByIdTransport) {
+        this.transportOperatorByIdTransport = transportOperatorByIdTransport;
     }
 }

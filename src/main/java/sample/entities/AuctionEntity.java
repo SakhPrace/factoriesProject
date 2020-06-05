@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "auction", schema = "maindb", catalog = "")
 public class AuctionEntity {
     private int id;
-    private Integer idOrder;
+    private int idOrder;
     private Integer offeredPrice;
     private Integer idTransporter;
 
@@ -21,12 +21,12 @@ public class AuctionEntity {
     }
 
     @Basic
-    @Column(name = "id_order", nullable = true)
-    public Integer getIdOrder() {
+    @Column(name = "id_order", nullable = false)
+    public int getIdOrder() {
         return idOrder;
     }
 
-    public void setIdOrder(Integer idOrder) {
+    public void setIdOrder(int idOrder) {
         this.idOrder = idOrder;
     }
 
@@ -58,7 +58,7 @@ public class AuctionEntity {
         AuctionEntity that = (AuctionEntity) o;
 
         if (id != that.id) return false;
-        if (idOrder != null ? !idOrder.equals(that.idOrder) : that.idOrder != null) return false;
+        if (idOrder != that.idOrder) return false;
         if (offeredPrice != null ? !offeredPrice.equals(that.offeredPrice) : that.offeredPrice != null) return false;
         if (idTransporter != null ? !idTransporter.equals(that.idTransporter) : that.idTransporter != null)
             return false;
@@ -69,7 +69,7 @@ public class AuctionEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (idOrder != null ? idOrder.hashCode() : 0);
+        result = 31 * result + idOrder;
         result = 31 * result + (offeredPrice != null ? offeredPrice.hashCode() : 0);
         result = 31 * result + (idTransporter != null ? idTransporter.hashCode() : 0);
         return result;
