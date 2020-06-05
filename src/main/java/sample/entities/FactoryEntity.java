@@ -1,6 +1,7 @@
 package sample.entities;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "factory", schema = "maindb", catalog = "")
@@ -9,6 +10,8 @@ public class FactoryEntity {
     private String name;
     private Integer exportid;
     private String password;
+    private FactoryProductEntity factoryProductById;
+    private Collection<OrderingEntity> orderingsById;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -72,5 +75,23 @@ public class FactoryEntity {
         result = 31 * result + (exportid != null ? exportid.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
+    }
+
+    @OneToOne(mappedBy = "factoryByFactoryId")
+    public FactoryProductEntity getFactoryProductById() {
+        return factoryProductById;
+    }
+
+    public void setFactoryProductById(FactoryProductEntity factoryProductById) {
+        this.factoryProductById = factoryProductById;
+    }
+
+    @OneToMany(mappedBy = "factoryByIdFactory")
+    public Collection<OrderingEntity> getOrderingsById() {
+        return orderingsById;
+    }
+
+    public void setOrderingsById(Collection<OrderingEntity> orderingsById) {
+        this.orderingsById = orderingsById;
     }
 }
