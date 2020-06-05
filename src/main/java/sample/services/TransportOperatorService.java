@@ -17,7 +17,7 @@ public class TransportOperatorService implements TransportOperatorServiceInterfa
     private TransportOperatorRepository repository;
 
     @Override
-    public TransportOperatorEntity findEntityById(Integer id) {
+    public TransportOperatorEntity findEntityById(int id) {
         TransportOperatorEntity TransportOperatorEntity = repository.findById(id).get();
         return TransportOperatorEntity;
     }

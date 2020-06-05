@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface TransportOperatorServiceInterface {
 
-    TransportOperatorEntity findEntityById(Integer id);
+    TransportOperatorEntity findEntityById(int id);
 
     void save(TransportOperatorEntity TransportOperatorEntity);
 

@@ -3,11 +3,11 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product", schema = "public", catalog = "postgres")
+@Table(name = "product", schema = "maindb", catalog = "")
 public class ProductEntity {
     private int id;
     private String name;
-    private int pricePerUnit;
+    private Integer pricePerUnit;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -20,7 +20,7 @@ public class ProductEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = -1)
+    @Column(name = "name", nullable = true, length = 255)
     public String getName() {
         return name;
     }
@@ -30,12 +30,12 @@ public class ProductEntity {
     }
 
     @Basic
-    @Column(name = "price_per_unit", nullable = false)
-    public int getPricePerUnit() {
+    @Column(name = "price_per_unit", nullable = true)
+    public Integer getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(int pricePerUnit) {
+    public void setPricePerUnit(Integer pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 
@@ -47,8 +47,8 @@ public class ProductEntity {
         ProductEntity that = (ProductEntity) o;
 
         if (id != that.id) return false;
-        if (pricePerUnit != that.pricePerUnit) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (pricePerUnit != null ? !pricePerUnit.equals(that.pricePerUnit) : that.pricePerUnit != null) return false;
 
         return true;
     }
@@ -57,10 +57,7 @@ public class ProductEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + pricePerUnit;
+        result = 31 * result + (pricePerUnit != null ? pricePerUnit.hashCode() : 0);
         return result;
     }
-
-    @OneToOne (optional=false, mappedBy="product")
-    private FactoryEntity factory;
 }

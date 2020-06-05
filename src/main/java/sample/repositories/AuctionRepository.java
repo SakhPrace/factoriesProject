@@ -1,4 +1,12 @@
 package sample.repositories;
 
-public class AuctionRepository {
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import sample.entities.AuctionEntity;
+@Repository
+public interface AuctionRepository extends CrudRepository<AuctionEntity, Integer> {
+    @Query("SELECT e FROM AuctionEntity e WHERE e.idOrder = :orderId")
+    AuctionEntity getAuctionEntityByOrderId(@Param("orderId") int orderId);
 }
