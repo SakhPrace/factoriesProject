@@ -33,8 +33,3 @@ INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(8, 
 DELETE FROM maindb.auction;
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 3800, 1);
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 6, 3000, 3);
-
-DELETE FROM maindb.oq2_backing;
-INSERT INTO oq2_backing(origid, destid, weight)
-VALUES (1,2,1), (2,3,1), (3,4,3), (4,5,1), (2,6,10), (5,6,2);
-SET foreign_key_checks = 1;
