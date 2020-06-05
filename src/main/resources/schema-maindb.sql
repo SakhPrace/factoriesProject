@@ -15,9 +15,7 @@ CREATE TABLE IF NOT EXISTS transport_operator (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(255),
 price_per_unit integer,
-password VARCHAR(255),
-id_auction integer,
-FOREIGN KEY (id_auction) REFERENCES auction(id)
+password VARCHAR(255)
 );
 CREATE TABLE IF NOT EXISTS ordering (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
@@ -25,11 +23,16 @@ id_factory integer,
 id_product integer,
 id_transport integer,
 price integer,
-id_auction integer,
 FOREIGN KEY (id_factory) REFERENCES factory(id),
 FOREIGN KEY (id_product) REFERENCES product(id),
-FOREIGN KEY (id_transport) REFERENCES transport_operator(id),
-FOREIGN KEY (id_auction) REFERENCES auction(id)
+FOREIGN KEY (id_transport) REFERENCES transport_operator(id)
+);
+
+CREATE TABLE IF NOT EXISTS factory_product (
+factory_id INT PRIMARY KEY,
+product_id INT,
+FOREIGN KEY (factory_id) REFERENCES factory(id),
+FOREIGN KEY (product_id) REFERENCES product(id)
 );
 CREATE TABLE IF NOT EXISTS auction (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
@@ -38,11 +41,4 @@ offered_price integer,
 id_transporter integer,
 FOREIGN KEY (id_order) REFERENCES ordering(id),
 FOREIGN KEY (id_transporter) REFERENCES transport_operator(id)
-);
-
-CREATE TABLE IF NOT EXISTS factory_product (
-factory_id INT PRIMARY KEY,
-product_id INT,
-FOREIGN KEY (factory_id) REFERENCES factory(id),
-FOREIGN KEY (product_id) REFERENCES product(id)
 );
