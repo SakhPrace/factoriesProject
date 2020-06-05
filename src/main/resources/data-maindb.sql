@@ -1,3 +1,4 @@
+SET foreign_key_checks = 0;
 DELETE FROM maindb.factory;
 INSERT INTO factory(id, name, exportid, password) VALUES(1, 'Factory One', 1, '$2y$16$6tbZ.1cbSZyvPfS7KBjf1eDRYD5aiGUxSfijdkCqeJWaZj1aWnYR2'); /*pF1*/
 INSERT INTO factory(id, name, exportid, password) VALUES(2, 'Factory Two', 1, '$2y$16$.oidnx809LReNTaR6P/3ouqW4btmNIAud8dwFzPUBfzXLHqfu180O'); /*pF2*/
@@ -32,3 +33,4 @@ INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(8, 
 DELETE FROM maindb.auction;
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 3800, 1);
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 6, 3000, 3);
+SET foreign_key_checks = 1;
