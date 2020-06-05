@@ -21,7 +21,10 @@ id serial PRIMARY KEY,
 id_factory integer,
 id_product integer,
 id_transport integer,
-price integer
+price integer,
+    FOREIGN KEY (id_factory) REFERENCES factory(id),
+    FOREIGN KEY (id_product) REFERENCES product(id),
+    FOREIGN KEY (id_transport) REFERENCES transport_operator(id)
 );
 CREATE TABLE IF NOT EXISTS auction (
 id serial PRIMARY KEY,
