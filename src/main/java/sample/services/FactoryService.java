@@ -16,7 +16,7 @@ public class FactoryService implements FactoryServiceInterface{
     private FactoryRepository repository;
 
     @Override
-    public FactoryEntity findEntityById(Integer id) {
+    public FactoryEntity findEntityById(int id) {
         FactoryEntity factoryEntity = repository.findById(id).get();
         return factoryEntity;
     }

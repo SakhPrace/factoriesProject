@@ -16,7 +16,7 @@ public class ProductService implements ProductServiceInterface{
     private ProductRepository repository;
 
     @Override
-    public ProductEntity findEntityById(Integer id) {
+    public ProductEntity findEntityById(int id) {
         ProductEntity productEntity = repository.findById(id).get();
         return productEntity;
     }

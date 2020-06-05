@@ -3,11 +3,11 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "transport_operator", schema = "public", catalog = "postgres")
+@Table(name = "transport_operator", schema = "maindb", catalog = "")
 public class TransportOperatorEntity {
     private int id;
     private String name;
-    private int pricePerUnit;
+    private Integer pricePerUnit;
     private String password;
 
     @Id
@@ -21,7 +21,7 @@ public class TransportOperatorEntity {
     }
 
     @Basic
-    @Column(name = "name", nullable = false, length = -1)
+    @Column(name = "name", nullable = true, length = 255)
     public String getName() {
         return name;
     }
@@ -31,17 +31,17 @@ public class TransportOperatorEntity {
     }
 
     @Basic
-    @Column(name = "price_per_unit", nullable = false)
-    public int getPricePerUnit() {
+    @Column(name = "price_per_unit", nullable = true)
+    public Integer getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(int pricePerUnit) {
+    public void setPricePerUnit(Integer pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 
     @Basic
-    @Column(name = "password", nullable = false, length = -1)
+    @Column(name = "password", nullable = true, length = 255)
     public String getPassword() {
         return password;
     }
@@ -58,8 +58,8 @@ public class TransportOperatorEntity {
         TransportOperatorEntity that = (TransportOperatorEntity) o;
 
         if (id != that.id) return false;
-        if (pricePerUnit != that.pricePerUnit) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (pricePerUnit != null ? !pricePerUnit.equals(that.pricePerUnit) : that.pricePerUnit != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
 
         return true;
@@ -69,8 +69,8 @@ public class TransportOperatorEntity {
     public int hashCode() {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (pricePerUnit != null ? pricePerUnit.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + pricePerUnit;
         return result;
     }
 }

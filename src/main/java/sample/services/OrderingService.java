@@ -15,7 +15,7 @@ public class OrderingService implements OrderingServiceInterface {
     private OrderingRepository repository;
 
     @Override
-    public OrderingEntity findEntityById(Integer id) {
+    public OrderingEntity findEntityById(int id) {
         OrderingEntity orderingEntity = repository.findById(id).get();
         return orderingEntity;
     }
@@ -31,5 +31,10 @@ public class OrderingService implements OrderingServiceInterface {
     @Override
     public void save(OrderingEntity orderingEntity) {
         repository.save(orderingEntity);
+    }
+
+    @Override
+    public void deleteById(int id) {
+        repository.deleteById(id);
     }
 }

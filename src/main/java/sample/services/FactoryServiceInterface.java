@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface FactoryServiceInterface {
 
-    FactoryEntity findEntityById(Integer id);
+    FactoryEntity findEntityById(int id);
 
     void save(FactoryEntity factoryEntity);
 

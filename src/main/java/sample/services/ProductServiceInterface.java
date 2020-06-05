@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface ProductServiceInterface {
 
-    ProductEntity findEntityById(Integer id);
+    ProductEntity findEntityById(int id);
 
     void save(ProductEntity productEntity);
 }
