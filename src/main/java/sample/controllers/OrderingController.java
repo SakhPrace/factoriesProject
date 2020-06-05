@@ -63,7 +63,7 @@ public class OrderingController {
 
     @FXML
     public void buttonAcceptOrderOnAction(ActionEvent event) {
-        orderingEntityThis.setIdTransport(auctionEntityThis.getIdTransporter());
+        orderingEntityThis.setTransportOperatorByIdTransport(transportOperatorService.findEntityById(auctionEntityThis.getIdTransporter()));
         orderingEntityThis.setPrice(auctionEntityThis.getOfferedPrice());
         orderingService.save(orderingEntityThis);
         auctionService.deleteById(auctionEntityThis.getId());
@@ -86,12 +86,12 @@ public class OrderingController {
                     if (oldWindow == null && newWindow != null) {
                         stageThis = (Stage) this.anchorPane.getScene().getWindow();
                         orderingEntityThis = orderingService.findEntityById(Integer.valueOf(stageThis.getTitle()));
-                        stageThis.setTitle(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
+                        stageThis.setTitle(orderingEntityThis.getProductByIdProduct().getName());
                         labelMaterial.setText(stageThis.getTitle());
-                        labelCustomer.setText(factoryService.findEntityById(orderingEntityThis.getIdFactory()).getName());
-                        if (orderingEntityThis.getIdTransport() != null) {
+                        labelCustomer.setText(orderingEntityThis.getFactoryByIdFactory().getName());
+                        if (orderingEntityThis.getTransportOperatorByIdTransport() != null) {
                             acceptedOrder = true;
-                            labelTransporter.setText(transportOperatorService.findEntityById(orderingEntityThis.getIdTransport()).getName());
+                            labelTransporter.setText(transportOperatorService.findEntityById(orderingEntityThis.getTransportOperatorByIdTransport().getId()).getName());
                             labelPriceName.setText("Price");
                             labelPriceValue.setText(String.valueOf(orderingEntityThis.getPrice()));
                             buttonAcceptOrder.setVisible(false);
@@ -100,7 +100,7 @@ public class OrderingController {
                             labelTransporter.setText("UNACCEPTED ORDER");
                             labelPriceName.setText("Bid Price");
                             auctionEntityThis = auctionService.findEntityByOrderId(orderingEntityThis.getId());
-                            labelPriceValue.setText(String.valueOf(auctionEntityThis.getOfferedPrice())); //TODO
+                            labelPriceValue.setText(String.valueOf(auctionEntityThis.getOfferedPrice()));
                         }
                         ((Stage) newWindow).maximizedProperty().addListener((a, b, c) -> {
                             if (c) {

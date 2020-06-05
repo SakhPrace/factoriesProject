@@ -11,9 +11,9 @@ import java.util.List;
 
 @Repository
 public interface OrderingRepository extends CrudRepository<OrderingEntity, Integer>{
-    @Query("SELECT e FROM OrderingEntity e WHERE e.idFactory = :factoryId AND e.idTransport IS NOT NULL")
+    @Query("SELECT e FROM OrderingEntity e WHERE e.factoryByIdFactory.id = :factoryId AND e.transportOperatorByIdTransport IS NOT NULL")
     List<OrderingEntity> getOrderingEntitiesByFactoryIdWithTransport(@Param("factoryId") int factoryId);
-    @Query("SELECT e FROM OrderingEntity e WHERE e.idFactory = :factoryId AND e.idTransport IS NULL")
+    @Query("SELECT e FROM OrderingEntity e WHERE e.factoryByIdFactory.id = :factoryId AND e.transportOperatorByIdTransport IS NULL")
     List<OrderingEntity> getOrderingEntitiesByFactoryIdWithoutTransport(@Param("factoryId") int factoryId);
 
 }

@@ -29,6 +29,7 @@ public class AuctionService implements AuctionServiceInterface {
     public void deleteById(int id) {
         repository.deleteById(id);
     }
+
     @Override
     public void save(AuctionEntity auctionEntity) {
         repository.save(auctionEntity);

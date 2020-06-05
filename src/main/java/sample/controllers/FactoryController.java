@@ -135,7 +135,7 @@ public class FactoryController {
         orderingEntities = orderingService.findEntitiesByFactoryIdWithTransport(factoryEntityThis.getId());
         System.out.println("orderingEnteties count = " + orderingEntities.size());
         for (OrderingEntity orderingEntity : orderingEntities) {
-            forListViewAcceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
+            forListViewAcceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + orderingEntity.getProductByIdProduct().getName());
             orderingEntitiesAccepted.add(orderingEntity);
         }
         listViewAcceptedOrders.setItems(forListViewAcceptedOrders);
@@ -147,7 +147,7 @@ public class FactoryController {
         orderingEntitiesUnaccepted = new ArrayList<>();
         System.out.println("orderingEnteties count = " + orderingEntities.size());
         for (OrderingEntity orderingEntity : orderingEntities) {
-            forListViewUnacceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
+            forListViewUnacceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + orderingEntity.getProductByIdProduct().getName());
             orderingEntitiesUnaccepted.add(orderingEntity);
         }
         listViewUnacceptedOrders.setItems(forListViewUnacceptedOrders);
