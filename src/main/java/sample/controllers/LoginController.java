@@ -82,8 +82,8 @@ public class LoginController {
                     Parent root = fxWeaver.loadView(TransporterController.class);
                     Scene scene = new Scene(root);
                     Stage stage = new Stage();
-                    stage.setScene(scene);
                     stage.setTitle(textFieldUsername.getText());
+                    stage.setScene(scene);
                     stage.show();
                     buttonCloseOnAction(new ActionEvent());
                 } else {showAlertWithoutHeaderText();}

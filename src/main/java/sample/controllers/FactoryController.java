@@ -21,10 +21,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 import sample.JavaFxApplication;
 import sample.entities.FactoryEntity;
 import sample.entities.OrderingEntity;
+import sample.entities.ProductEntity;
 import sample.services.FactoryServiceInterface;
 import sample.services.OrderingServiceInterface;
 import sample.services.ProductServiceInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -58,6 +60,10 @@ public class FactoryController {
 
     private ObservableList<String> forListViewUnacceptedOrders = FXCollections.observableArrayList();
 
+    private List<OrderingEntity> orderingEntitiesAccepted = new ArrayList<>();
+
+    private List<OrderingEntity> orderingEntitiesUnaccepted = new ArrayList<>();
+
     private Stage stageThis;
 
     private FactoryEntity factoryEntityThis;
@@ -72,7 +78,6 @@ public class FactoryController {
     @FXML
     private void buttonLogOutOnAction(ActionEvent event) {
         anchorPane.setDisable(true);
-        Stage stageThis = (Stage) buttonLogOut.getScene().getWindow();
         FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
         Parent root = fxWeaver.loadView(LoginController.class);
         Scene scene = new Scene(root);
@@ -87,7 +92,16 @@ public class FactoryController {
     private void listViewAcceptedOrdersOnMouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
-
+                int orderIdFromListView = listViewAcceptedOrders.getSelectionModel().getSelectedIndex();
+                FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                Parent root = fxWeaver.loadView(OrderingController.class);
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setTitle(String.valueOf(orderingEntitiesAccepted.get(orderIdFromListView).getId()));
+                stage.setScene(scene);
+                stage.showAndWait();
+                updateListViewAcceptedOrders();
+                updateListViewUnacceptedOrders();
             }
         }
 
@@ -97,23 +111,44 @@ public class FactoryController {
     private void listViewUnacceptedOrdersOnMouseClicked(MouseEvent mouseEvent) {
         if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
             if (mouseEvent.getClickCount() == 2) {
-
+                if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+                    if (mouseEvent.getClickCount() == 2) {
+                        int orderIdFromListView = listViewUnacceptedOrders.getSelectionModel().getSelectedIndex();
+                        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                        Parent root = fxWeaver.loadView(OrderingController.class);
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setTitle(String.valueOf(orderingEntitiesUnaccepted.get(orderIdFromListView).getId()));
+                        stage.setScene(scene);
+                        stage.showAndWait();
+                        updateListViewAcceptedOrders();
+                        updateListViewUnacceptedOrders();
+                    }
+                }
             }
         }
     }
 
     private void updateListViewAcceptedOrders() {
+        forListViewAcceptedOrders = FXCollections.observableArrayList();
+        orderingEntitiesAccepted = new ArrayList<>();
         orderingEntities = orderingService.findEntitiesByFactoryIdWithTransport(factoryEntityThis.getId());
+        System.out.println("orderingEnteties count = " + orderingEntities.size());
         for (OrderingEntity orderingEntity : orderingEntities) {
             forListViewAcceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
+            orderingEntitiesAccepted.add(orderingEntity);
         }
         listViewAcceptedOrders.setItems(forListViewAcceptedOrders);
     }
 
     private void updateListViewUnacceptedOrders() {
         orderingEntities = orderingService.findEntitiesByFactoryIdWithoutTransport(factoryEntityThis.getId());
+        forListViewUnacceptedOrders = FXCollections.observableArrayList();
+        orderingEntitiesUnaccepted = new ArrayList<>();
+        System.out.println("orderingEnteties count = " + orderingEntities.size());
         for (OrderingEntity orderingEntity : orderingEntities) {
             forListViewUnacceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
+            orderingEntitiesUnaccepted.add(orderingEntity);
         }
         listViewUnacceptedOrders.setItems(forListViewUnacceptedOrders);
     }

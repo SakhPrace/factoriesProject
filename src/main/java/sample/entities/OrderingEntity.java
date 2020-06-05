@@ -3,12 +3,13 @@ package sample.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ordering", schema = "public", catalog = "postgres")
+@Table(name = "ordering", schema = "maindb", catalog = "")
 public class OrderingEntity {
     private int id;
-    private int idFactory;
-    private int idProduct;
-    private Integer idTransportOperator;
+    private Integer idFactory;
+    private Integer idProduct;
+    private Integer idTransport;
+    private Integer price;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -21,33 +22,43 @@ public class OrderingEntity {
     }
 
     @Basic
-    @Column(name = "id_factory", nullable = false)
-    public int getIdFactory() {
+    @Column(name = "id_factory", nullable = true)
+    public Integer getIdFactory() {
         return idFactory;
     }
 
-    public void setIdFactory(int idFactory) {
+    public void setIdFactory(Integer idFactory) {
         this.idFactory = idFactory;
     }
 
     @Basic
-    @Column(name = "id_product", nullable = false)
-    public int getIdProduct() {
+    @Column(name = "id_product", nullable = true)
+    public Integer getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(int idProduct) {
+    public void setIdProduct(Integer idProduct) {
         this.idProduct = idProduct;
     }
 
     @Basic
     @Column(name = "id_transport", nullable = true)
-    public Integer getIdTransportOperator() {
-        return idTransportOperator;
+    public Integer getIdTransport() {
+        return idTransport;
     }
 
-    public void setIdTransportOperator(Integer idTransportOperator) {
-        this.idTransportOperator = idTransportOperator;
+    public void setIdTransport(Integer idTransport) {
+        this.idTransport = idTransport;
+    }
+
+    @Basic
+    @Column(name = "price", nullable = true)
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     @Override
@@ -58,9 +69,10 @@ public class OrderingEntity {
         OrderingEntity that = (OrderingEntity) o;
 
         if (id != that.id) return false;
-        if (idFactory != that.idFactory) return false;
-        if (idProduct != that.idProduct) return false;
-        if (!idTransportOperator.equals(that.idTransportOperator)) return false;
+        if (idFactory != null ? !idFactory.equals(that.idFactory) : that.idFactory != null) return false;
+        if (idProduct != null ? !idProduct.equals(that.idProduct) : that.idProduct != null) return false;
+        if (idTransport != null ? !idTransport.equals(that.idTransport) : that.idTransport != null) return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
 
         return true;
     }
@@ -68,9 +80,10 @@ public class OrderingEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + idFactory;
-        result = 31 * result + idProduct;
-        result = 31 * result + idTransportOperator.hashCode();
+        result = 31 * result + (idFactory != null ? idFactory.hashCode() : 0);
+        result = 31 * result + (idProduct != null ? idProduct.hashCode() : 0);
+        result = 31 * result + (idTransport != null ? idTransport.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
         return result;
     }
 }
