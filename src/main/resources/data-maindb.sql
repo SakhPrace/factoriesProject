@@ -13,12 +13,12 @@ INSERT INTO product(id, name, price_per_unit) VALUES(3, 'Electrical components',
 INSERT INTO product(id, name, price_per_unit) VALUES(4, 'Car', 100);
 INSERT INTO product(id, name, price_per_unit) VALUES(5, 'Furniture', 50);
 
-DELETE FROM maindb.transport_operator;
-INSERT INTO transport_operator(id, name, price_per_unit,password) VALUES(1, 'CCC1', 1, '$2y$16$rNQMZBVxYeKuqp.0qpujSOjO0tg6yzSME9DV4VxXbDu0Dom/YTH2a'); /*pT1*/
-INSERT INTO transport_operator(id, name, price_per_unit,password) VALUES(2, 'CCC2', 1, '$2y$16$.NP7.fYZSBCe9osNOIJjJOgsulr77qOle3ievVx7wne/FcgOIwA9q'); /*pT2*/
-INSERT INTO transport_operator(id, name, price_per_unit,password) VALUES(3, 'CCC3', 1, '$2y$16$QeN/My.qOPCJ.F0izfE7FefTka6C7rq8YixYqAXu9/uIUb0Jp0sn2'); /*pT3*/
-INSERT INTO transport_operator(id, name, price_per_unit,password) VALUES(4, 'CCC4', 1, '$2y$16$zcpleK/gEHiG5zhy1MHvZOAja3uBaWgdt1OsBCx2Qm2PC4.d1h4/2'); /*pT4*/
-INSERT INTO transport_operator(id, name, price_per_unit,password) VALUES(5, 'CCC5', 1, '$2y$16$IDh1wV7Fk..Yvx..UGXtdeRAtXz7dYXPBfGgZaiyJQ0gOFq5UAAwK'); /*pT5*/
+DELETE FROM maindb.transporter;
+INSERT INTO transporter(id, name, price_per_unit,password) VALUES(1, 'CCC1', 1, '$2y$16$rNQMZBVxYeKuqp.0qpujSOjO0tg6yzSME9DV4VxXbDu0Dom/YTH2a'); /*pT1*/
+INSERT INTO transporter(id, name, price_per_unit,password) VALUES(2, 'CCC2', 1, '$2y$16$.NP7.fYZSBCe9osNOIJjJOgsulr77qOle3ievVx7wne/FcgOIwA9q'); /*pT2*/
+INSERT INTO transporter(id, name, price_per_unit,password) VALUES(3, 'CCC3', 1, '$2y$16$QeN/My.qOPCJ.F0izfE7FefTka6C7rq8YixYqAXu9/uIUb0Jp0sn2'); /*pT3*/
+INSERT INTO transporter(id, name, price_per_unit,password) VALUES(4, 'CCC4', 1, '$2y$16$zcpleK/gEHiG5zhy1MHvZOAja3uBaWgdt1OsBCx2Qm2PC4.d1h4/2'); /*pT4*/
+INSERT INTO transporter(id, name, price_per_unit,password) VALUES(5, 'CCC5', 1, '$2y$16$IDh1wV7Fk..Yvx..UGXtdeRAtXz7dYXPBfGgZaiyJQ0gOFq5UAAwK'); /*pT5*/
 
 DELETE FROM maindb.ordering;
 INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(1, 1, 2, 1, 3000);
