@@ -33,3 +33,6 @@ INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(8, 
 DELETE FROM maindb.auction;
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 3800, 1);
 INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 6, 3000, 3);
+
+DELETE FROM maindb.roads_backing;
+INSERT INTO roads_backing(origid, destid, weight) VALUES (1,2,1), (2,3,3), (3,4,2), (4,5,3), (2,4,8), (2,5,7),(3,5,1),(2,1,1), (3,2,3), (4,3,2), (5,4,3), (4,2,8), (5,2,7),(5,3,1);

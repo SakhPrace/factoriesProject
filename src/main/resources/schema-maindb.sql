@@ -11,6 +11,7 @@ id integer not null AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(255),
 price_per_unit integer
 );
+
 CREATE TABLE IF NOT EXISTS transport_operator (
 id integer not null AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(255),
@@ -54,3 +55,30 @@ auction_id INT,
 FOREIGN KEY (transporter_id) REFERENCES transport_operator(id),
 FOREIGN KEY (auction_id) REFERENCES auction(id)
 );
+
+CREATE TABLE IF NOT EXISTS roads_backing (
+origid INT UNSIGNED NOT NULL,
+destid INT UNSIGNED NOT NULL,
+weight DOUBLE NOT NULL,
+PRIMARY KEY (origid, destid),
+KEY (destid)
+);
+
+DELETE FROM maindb.roads_backing;
+INSERT INTO roads_backing(origid, destid, weight) VALUES (1,2,1), (2,3,3), (3,4,2), (4,5,3), (2,4,8), (2,5,7),(3,5,1),(2,1,1), (3,2,3), (4,3,2), (5,4,3), (4,2,8), (5,2,7),(5,3,1);
+
+CREATE TABLE IF NOT EXISTS roads_graph (
+latch VARCHAR(32) NULL,
+origid BIGINT UNSIGNED NULL,
+destid BIGINT UNSIGNED NULL,
+weight DOUBLE NULL,
+seq BIGINT UNSIGNED NULL,
+linkid BIGINT UNSIGNED NULL,
+KEY (latch, origid, destid) USING HASH,
+KEY (latch, destid, origid) USING HASH
+)
+ENGINE=OQGRAPH
+data_table='roads_backing' origid='origid' destid='destid' weight='weight';
+
+SET @optimal_path:=(SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM roads_graph
+WHERE latch='dijkstras' AND origid=1 AND destid=5);
