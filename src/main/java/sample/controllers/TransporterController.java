@@ -16,9 +16,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sample.JavaFxApplication;
-import sample.entities.FactoryEntity;
 import sample.entities.OrderingEntity;
-import sample.entities.TransportOperatorEntity;
 import sample.services.*;
 
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class TransporterController {
     ProductServiceInterface productService;
 
     @Autowired
-    TransportOperatorServiceInterface transportOperatorService;
+    TransporterServiceInterface transportOperatorService;
 
     @Autowired
     AuctionServiceInterface auctionService;
@@ -66,7 +64,7 @@ public class TransporterController {
 
     private Stage stageThis;
 
-    private TransportOperatorEntity transportOperatorEntityThis;
+    private TransporterEntity transporterEntityThis;
 
     private List<OrderingEntity> orderingEntities;
 
@@ -87,7 +85,7 @@ public class TransporterController {
     private void updateListViewAcceptedOrders() {
         forListViewAcceptedOrders = FXCollections.observableArrayList();
         orderingEntitiesAccepted = new ArrayList<>();
-        orderingEntities = orderingService.findEntitiesByFactoryIdWithTransport(transportOperatorEntityThis.getId());
+        orderingEntities = orderingService.findEntitiesByFactoryIdWithTransport(transporterEntityThis.getId());
         System.out.println("orderingEnteties count = " + orderingEntities.size());
         for (OrderingEntity orderingEntity : orderingEntities) {
             forListViewAcceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + orderingEntity.getProductByIdProduct().getName());
@@ -97,7 +95,7 @@ public class TransporterController {
     }
 
     private void updateListViewUnacceptedOrders() {
-        orderingEntities = orderingService.findEntitiesByFactoryIdWithoutTransport(transportOperatorEntityThis.getId());
+        orderingEntities = orderingService.findEntitiesByFactoryIdWithoutTransport(transporterEntityThis.getId());
         forListViewUnacceptedOrders = FXCollections.observableArrayList();
         orderingEntitiesUnaccepted = new ArrayList<>();
         System.out.println("orderingEnteties count = " + orderingEntities.size());
@@ -116,7 +114,7 @@ public class TransporterController {
                 newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
                     if (oldWindow == null && newWindow != null) {
                         stageThis = (Stage) this.anchorPane.getScene().getWindow();
-                        transportOperatorEntityThis = transportOperatorService.findEntityByName(stageThis.getTitle());
+                        transporterEntityThis = transportOperatorService.findEntityByName(stageThis.getTitle());
                         updateListViewAcceptedOrders();
                         updateListViewUnacceptedOrders();
                         ((Stage) newWindow).maximizedProperty().addListener((a, b, c) -> {

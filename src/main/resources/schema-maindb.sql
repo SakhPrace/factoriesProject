@@ -18,7 +18,7 @@ FOREIGN KEY (exportid) REFERENCES product(id)
 CREATE TABLE IF NOT EXISTS transporter (
 id int not null AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(255),
-price_per_unit int,
+price_per_unit integer,
 password VARCHAR(255)
 );
 
@@ -42,9 +42,9 @@ PRIMARY KEY (origid, destid),
 KEY (destid)
 );
 
-
-DELETE FROM maindb.roads_backing;
+/*DELETE FROM maindb.roads_backing;
 INSERT INTO roads_backing(origid, destid, weight) VALUES (1,2,1), (2,3,3), (3,4,2), (4,5,3), (2,4,8), (2,5,7),(3,5,1),(2,1,1), (3,2,3), (4,3,2), (5,4,3), (4,2,8), (5,2,7),(5,3,1);
+*/
 
 CREATE TABLE IF NOT EXISTS roads_graph (
 latch VARCHAR(32) NULL,
@@ -59,9 +59,5 @@ KEY (latch, destid, origid) USING HASH
 ENGINE=OQGRAPH
 data_table='roads_backing' origid='origid' destid='destid' weight='weight';
 
-
-/*SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM maindb.roads_graph
-WHERE latch='dijkstras' AND origid=origidIN AND destid=destidIN;*/
-
-
-
+SET @optimal_path:=(SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM roads_graph
+WHERE latch='dijkstras' AND origid=1 AND destid=5);
