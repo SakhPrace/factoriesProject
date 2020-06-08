@@ -1,27 +1,29 @@
 package sample.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "product", schema = "maindb", catalog = "")
 public class ProductEntity {
-    private Integer id;
-    private String name;
-    private Integer pricePerUnit;
-
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
-    public Integer getId() {
+    private int id;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "name", nullable = true, length = 255)
+    private String name;
+
     public String getName() {
         return name;
     }
@@ -32,11 +34,13 @@ public class ProductEntity {
 
     @Basic
     @Column(name = "price_per_unit", nullable = true)
-    public Integer getPricePerUnit() {
+    private int pricePerUnit;
+
+    public int getPricePerUnit() {
         return pricePerUnit;
     }
 
-    public void setPricePerUnit(Integer pricePerUnit) {
+    public void setPricePerUnit(int pricePerUnit) {
         this.pricePerUnit = pricePerUnit;
     }
 
@@ -44,41 +48,38 @@ public class ProductEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductEntity that = (ProductEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (pricePerUnit != null ? !pricePerUnit.equals(that.pricePerUnit) : that.pricePerUnit != null) return false;
-
-        return true;
+        return id == that.id &&
+                pricePerUnit == that.pricePerUnit &&
+                name.equals(that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (pricePerUnit != null ? pricePerUnit.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, pricePerUnit);
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    /*
+    @OneToMany(targetEntity=FactoryEntity.class, fetch = FetchType.EAGER, mappedBy = "product")
     private Set<FactoryEntity>factories;
 
-    public Set<FactoryEntity> getFactoriesById(){
+    public Set<FactoryEntity> getFactories(){
         return factories;
     };
-     public void setFactoriesById(Set<FactoryEntity>factories){
+
+    public void setFactories(Set<FactoryEntity>factories){
          this.factories=factories;
      }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    @OneToMany(targetEntity=OrderingEntity.class, fetch = FetchType.EAGER, mappedBy = "product")
     private Set<OrderingEntity> orderings;
 
-    public Set<OrderingEntity> getOrderingsById(){
+    public Set<OrderingEntity> getOrderings(){
         return orderings;
     };
-    public void setOrderingsById(Set<OrderingEntity>orderings){
+    public void setOrderings(Set<OrderingEntity>orderings){
         this.orderings=orderings;
     }
+
+ */
 }

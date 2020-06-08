@@ -1,26 +1,28 @@
 package sample.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ordering", schema = "maindb", catalog = "")
 public class OrderingEntity {
-    private Integer id;
-    private Integer price;
-    private Byte accepted;
-
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
-    public Integer getId() {
+    private int id;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "price", nullable = true)
+    private Integer price;
+
     public Integer getPrice() {
         return price;
     }
@@ -31,69 +33,119 @@ public class OrderingEntity {
 
     @Basic
     @Column(name = "accepted", nullable = true)
-    public Byte getAccepted() {
+    private boolean accepted;
+
+    public boolean getAccepted() {
         return accepted;
     }
 
-    public void setAccepted(Byte accepted) {
+    public void setAccepted(boolean accepted) {
         this.accepted = accepted;
+    }
+
+    @Basic
+    @Column(name = "id_factory", nullable = false)
+    private int idFactory;
+
+    public int getIdFactory() {
+        return idFactory;
+    }
+
+    public void setIdFactory(int idFactory) {
+        this.idFactory = idFactory;
+    }
+
+    @Basic
+    @Column(name = "id_product", nullable = false)
+    private int idProduct;
+
+    public int getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(int idProduct) {
+        this.idProduct= idProduct;
+    }
+
+    @Basic
+    @Column(name = "id_transporter", nullable = false)
+    private int idTransporter;
+
+    public int getIdTransporter() {
+        return idTransporter;
+    }
+
+    public void setIdTransporter(int idTransporter) {
+        this.idTransporter= idTransporter;
+    }
+
+    @Basic
+    @Column(name = "id_factory_from", nullable = false)
+    private int idFactoryFrom;
+
+    public int getIdFactoryFrom() {
+        return idFactoryFrom;
+    }
+
+    public void setIdFactoryFrom(int idFactoryFrom) {
+        this.idFactoryFrom= idFactoryFrom;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         OrderingEntity that = (OrderingEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (accepted != null ? !accepted.equals(that.accepted) : that.accepted != null) return false;
-
-        return true;
+        return id == that.id &&
+                accepted == that.accepted &&
+                idFactory == that.idFactory &&
+                idProduct == that.idProduct &&
+                idTransporter == that.idTransporter &&
+                idFactoryFrom == that.idFactoryFrom &&
+                price.equals(that.price);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (accepted != null ? accepted.hashCode() : 0);
-        return result;
+        return Objects.hash(id, price, accepted, idFactory, idProduct, idTransporter, idFactoryFrom);
     }
 
-    @ManyToOne
+    /*
+    @ManyToOne(targetEntity=FactoryEntity.class, fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "id_factory", referencedColumnName = "id")
-    private FactoryEntity factoryByIdFactory;
-    public FactoryEntity getFactoryByIdFactory() {
-        return factoryByIdFactory;
+    private FactoryEntity factory;
+
+    public FactoryEntity getFactory() {
+        return factory;
     }
 
-    public void setFactoryByIdFactory(FactoryEntity factoryByIdFactory) {
-        this.factoryByIdFactory = factoryByIdFactory;
+    public void setFactory(FactoryEntity factoryByIdFactory) {
+        this.factory = factoryByIdFactory;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name = "id_product", nullable=false)
+    @ManyToOne(targetEntity=ProductEntity.class, fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name = "id_product", referencedColumnName="id", nullable=false)
     private ProductEntity product;
 
-    public ProductEntity getProductById() {
+    public ProductEntity getProduct() {
         return product;
     }
 
-    public void setProductById(ProductEntity product) {
+    public void setProduct(ProductEntity product) {
         this.product = product;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @ManyToOne(targetEntity=TransporterEntity.class, fetch = FetchType.EAGER,optional = false)
     @JoinColumn(name = "id_transporter", nullable=true)
     private TransporterEntity transporter;
 
-    public TransporterEntity getTransporterById() {
+    public TransporterEntity getTransporter() {
         return transporter;
     }
 
-    public void setTransporterById(TransporterEntity transporter) {
+    public void setTransporter(TransporterEntity transporter) {
         this.transporter = transporter;
     }
+
+ */
 }
-        }

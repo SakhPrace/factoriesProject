@@ -12,6 +12,9 @@ public class FactoryService implements FactoryServiceInterface{
     @Autowired(required = true)
     private FactoryRepository repository;
 
+    @Autowired(required = true)
+    private ProductService productService;
+
     @Override
     public FactoryEntity findEntityById(int id) {
         FactoryEntity factoryEntity = repository.findById(id).get();

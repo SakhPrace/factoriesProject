@@ -24,14 +24,16 @@ password VARCHAR(255)
 
 CREATE TABLE IF NOT EXISTS ordering (
 id int not null AUTO_INCREMENT PRIMARY KEY,
-id_factory int,
-id_product int,
-id_transport int,
-price int,
+id_factory int not null,
+id_product int not null,
+id_transporter int not null,
+price integer,
 accepted boolean,
+id_factory_from int not null,
 FOREIGN KEY (id_factory) REFERENCES factory(id),
 FOREIGN KEY (id_product) REFERENCES product(id),
-FOREIGN KEY (id_transport) REFERENCES transporter(id)
+FOREIGN KEY (id_transporter) REFERENCES transporter(id),
+FOREIGN KEY (id_factory_from) REFERENCES factory(id)
 );
 
 CREATE TABLE IF NOT EXISTS roads_backing (
@@ -59,5 +61,6 @@ KEY (latch, destid, origid) USING HASH
 ENGINE=OQGRAPH
 data_table='roads_backing' origid='origid' destid='destid' weight='weight';
 
-SET @optimal_path:=(SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM roads_graph
-WHERE latch='dijkstras' AND origid=1 AND destid=5);
+DROP PROCEDURE IF EXISTS maindb.Shortest_Way;
+create procedure maindb.Shortest_Way (IN origidIN BIGINT UNSIGNED, IN destidIN BIGINT UNSIGNED)
+    SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM maindb.roads_graph WHERE latch='dijkstras' AND origid=origidIN AND destid=destidIN;

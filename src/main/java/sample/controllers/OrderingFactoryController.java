@@ -9,13 +9,14 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import sample.entities.OrderingEntity;
 import sample.services.*;
 
 import java.util.List;
 
 @Component
-@FxmlView("ordering.fxml")
-public class OrderingController {
+@FxmlView("orderingFactory.fxml")
+public class OrderingFactoryController {
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -45,25 +46,17 @@ public class OrderingController {
     @Autowired
     TransporterServiceInterface transporterService;
 
-    @Autowired
-    AuctionServiceInterface auctionService;
-
     private Stage stageThis;
 
     private OrderingEntity orderingEntityThis;
 
-    private AuctionEntity auctionEntityThis;
-
-    private List<OrderingEntity> orderingEntities;
-
-    private Boolean acceptedOrder;
+    private Boolean accepted;
 
     @FXML
     public void buttonAcceptOrderOnAction(ActionEvent event) {
-        orderingEntityThis.setTransportOperatorByIdTransport(transportOperatorService.findEntityById(auctionEntityThis.getIdTransporter()));
-        orderingEntityThis.setPrice(auctionEntityThis.getOfferedPrice());
+        orderingEntityThis.setAccepted(true);
+        orderingEntityThis.setPrice(Integer.valueOf(labelPriceValue.getText()));
         orderingService.save(orderingEntityThis);
-        auctionService.deleteById(auctionEntityThis.getId());
         stageThis.close();
     }
 
@@ -83,21 +76,17 @@ public class OrderingController {
                     if (oldWindow == null && newWindow != null) {
                         stageThis = (Stage) this.anchorPane.getScene().getWindow();
                         orderingEntityThis = orderingService.findEntityById(Integer.valueOf(stageThis.getTitle()));
-                        stageThis.setTitle(orderingEntityThis.getProductByIdProduct().getName());
-                        labelMaterial.setText(stageThis.getTitle());
-                        labelCustomer.setText(orderingEntityThis.getFactoryByIdFactory().getName());
-                        if (orderingEntityThis.getTransportOperatorByIdTransport() != null) {
-                            acceptedOrder = true;
-                            labelTransporter.setText(transportOperatorService.findEntityById(orderingEntityThis.getTransportOperatorByIdTransport().getId()).getName());
-                            labelPriceName.setText("Price");
-                            labelPriceValue.setText(String.valueOf(orderingEntityThis.getPrice()));
+                        stageThis.setTitle(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
+                        labelMaterial.setText(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
+                        labelCustomer.setText(factoryService.findEntityById(orderingEntityThis.getIdFactory()).getName());
+                        labelPriceValue.setText(String.valueOf(orderingEntityThis.getPrice()));
+                        accepted=orderingEntityThis.getAccepted();
+                        if (accepted) {
+                            labelTransporter.setText(transporterService.findEntityById(orderingEntityThis.getIdTransporter()).getName());
                             buttonAcceptOrder.setVisible(false);
-                        } else {
-                            acceptedOrder = false;
-                            labelTransporter.setText("UNACCEPTED ORDER");
-                            labelPriceName.setText("Bid Price");
-                            auctionEntityThis = auctionService.findEntityByOrderId(orderingEntityThis.getId());
-                            labelPriceValue.setText(String.valueOf(auctionEntityThis.getOfferedPrice()));
+                        }else {
+                            labelTransporter.setText("NOBODY");
+                            buttonAcceptOrder.setVisible(true);
                         }
                         ((Stage) newWindow).maximizedProperty().addListener((a, b, c) -> {
                             if (c) {
@@ -109,4 +98,5 @@ public class OrderingController {
             }
         });
     }
+
 }

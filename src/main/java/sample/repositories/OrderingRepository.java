@@ -10,9 +10,17 @@ import java.util.List;
 
 @Repository
 public interface OrderingRepository extends CrudRepository<OrderingEntity, Integer>{
-    @Query("SELECT e FROM OrderingEntity e WHERE e.factoryByIdFactory.id = :factoryId AND e.transportOperatorByIdTransport IS NOT NULL")
-    List<OrderingEntity> getOrderingEntitiesByFactoryIdWithTransport(@Param("factoryId") int factoryId);
-    @Query("SELECT e FROM OrderingEntity e WHERE e.factoryByIdFactory.id = :factoryId AND e.transportOperatorByIdTransport IS NULL")
-    List<OrderingEntity> getOrderingEntitiesByFactoryIdWithoutTransport(@Param("factoryId") int factoryId);
+    @Query("SELECT e FROM OrderingEntity e WHERE e.idFactory = :idFactory AND e.accepted = true")
+    List<OrderingEntity> findOrderingEntitiesByIdFactoryAndAcceptedTrue(@Param("idFactory") int idFactory);
+    @Query("SELECT e FROM OrderingEntity e WHERE e.idFactory = :idFactory AND e.accepted = false")
+    List<OrderingEntity> findOrderingEntitiesByIdFactoryAndAcceptedFalse(@Param("idFactory") int idFactory);
+
+    @Query("SELECT e FROM OrderingEntity e WHERE e.idTransporter = :idTransporter AND e.accepted = true")
+    List<OrderingEntity> findOrderingEntitiesByIdTransporterAndAcceptedTrue(@Param("idTransporter") int idTransporter);
+    @Query("SELECT e FROM OrderingEntity e WHERE e.idTransporter = :idTransporter AND e.accepted = false")
+    List<OrderingEntity> findOrderingEntitiesByIdTransporterAndAcceptedFalse(@Param("idTransporter") int idTransporter);
+
+    @Query("SELECT e FROM OrderingEntity e WHERE e.idTransporter <> :idTransporter AND e.accepted = false ")
+    List<OrderingEntity> findAllOrderingEntitiesWithoutIdTransporterAndAcceptedFalse(@Param("idTransporter") int idTransporter);
 
 }
