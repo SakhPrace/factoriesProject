@@ -5,19 +5,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ordering", schema = "maindb", catalog = "")
 public class OrderingEntity {
-    private int id;
+    private Integer id;
     private Integer price;
-    private FactoryEntity factoryByIdFactory;
-    private ProductEntity productByIdProduct;
-    private TransportOperatorEntity transportOperatorByIdTransport;
+    private Byte accepted;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -31,6 +29,16 @@ public class OrderingEntity {
         this.price = price;
     }
 
+    @Basic
+    @Column(name = "accepted", nullable = true)
+    public Byte getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(Byte accepted) {
+        this.accepted = accepted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,21 +46,24 @@ public class OrderingEntity {
 
         OrderingEntity that = (OrderingEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (accepted != null ? !accepted.equals(that.accepted) : that.accepted != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (accepted != null ? accepted.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
     @JoinColumn(name = "id_factory", referencedColumnName = "id")
+    private FactoryEntity factoryByIdFactory;
     public FactoryEntity getFactoryByIdFactory() {
         return factoryByIdFactory;
     }
@@ -61,23 +72,28 @@ public class OrderingEntity {
         this.factoryByIdFactory = factoryByIdFactory;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_product", referencedColumnName = "id")
-    public ProductEntity getProductByIdProduct() {
-        return productByIdProduct;
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name = "id_product", nullable=false)
+    private ProductEntity product;
+
+    public ProductEntity getProductById() {
+        return product;
     }
 
-    public void setProductByIdProduct(ProductEntity productByIdProduct) {
-        this.productByIdProduct = productByIdProduct;
+    public void setProductById(ProductEntity product) {
+        this.product = product;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_transport", referencedColumnName = "id")
-    public TransportOperatorEntity getTransportOperatorByIdTransport() {
-        return transportOperatorByIdTransport;
+    @ManyToOne(fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name = "id_transporter", nullable=true)
+    private TransporterEntity transporter;
+
+    public TransporterEntity getTransporterById() {
+        return transporter;
     }
 
-    public void setTransportOperatorByIdTransport(TransportOperatorEntity transportOperatorByIdTransport) {
-        this.transportOperatorByIdTransport = transportOperatorByIdTransport;
+    public void setTransporterById(TransporterEntity transporter) {
+        this.transporter = transporter;
     }
 }
+        }

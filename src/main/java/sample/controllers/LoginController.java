@@ -17,6 +17,7 @@ import sample.JavaFxApplication;
 import sample.Security;
 import sample.services.FactoryServiceInterface;
 import sample.services.TransportOperatorServiceInterface;
+import sample.services.TransporterServiceInterface;
 
 @Component
 @FxmlView("login.fxml")
@@ -45,7 +46,7 @@ public class LoginController {
     FactoryServiceInterface factoryService;
 
     @Autowired
-    TransportOperatorServiceInterface transportOperatorService;
+    TransporterServiceInterface transporterService;
 
     @FXML
     private void buttonCloseOnAction(ActionEvent event) {

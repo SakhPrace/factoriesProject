@@ -1,24 +1,23 @@
 package sample.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
-@Table(name = "transport_operator", schema = "maindb", catalog = "")
-public class TransportOperatorEntity {
-    private int id;
+@Table(name = "transporter", schema = "maindb", catalog = "")
+public class TransporterEntity {
+    private Integer id;
     private String name;
     private Integer pricePerUnit;
     private String password;
-    private Collection<OrderingEntity> orderingsById;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,9 +56,9 @@ public class TransportOperatorEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TransportOperatorEntity that = (TransportOperatorEntity) o;
+        TransporterEntity that = (TransporterEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (pricePerUnit != null ? !pricePerUnit.equals(that.pricePerUnit) : that.pricePerUnit != null) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
@@ -69,19 +68,20 @@ public class TransportOperatorEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (pricePerUnit != null ? pricePerUnit.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "transportOperatorByIdTransport")
-    public Collection<OrderingEntity> getOrderingsById() {
-        return orderingsById;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "transporter")
+    private Set<OrderingEntity> orderings;
 
-    public void setOrderingsById(Collection<OrderingEntity> orderingsById) {
-        this.orderingsById = orderingsById;
+    public Set<OrderingEntity> getOrderingsById(){
+        return orderings;
+    };
+    public void setOrderingsById(Set<OrderingEntity>orderings){
+        this.orderings=orderings;
     }
 }

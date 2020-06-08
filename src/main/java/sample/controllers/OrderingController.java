@@ -9,9 +9,6 @@ import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sample.entities.AuctionEntity;
-import sample.entities.FactoryEntity;
-import sample.entities.OrderingEntity;
 import sample.services.*;
 
 import java.util.List;
@@ -46,7 +43,7 @@ public class OrderingController {
     ProductServiceInterface productService;
 
     @Autowired
-    TransportOperatorServiceInterface transportOperatorService;
+    TransporterServiceInterface transporterService;
 
     @Autowired
     AuctionServiceInterface auctionService;

@@ -1,24 +1,22 @@
 package sample.entities;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "product", schema = "maindb", catalog = "")
 public class ProductEntity {
-    private int id;
+    private Integer id;
     private String name;
     private Integer pricePerUnit;
-    private Collection<FactoryProductEntity> factoryProductsById;
-    private Collection<OrderingEntity> orderingsById;
 
     @Id
     @Column(name = "id", nullable = false)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -49,7 +47,7 @@ public class ProductEntity {
 
         ProductEntity that = (ProductEntity) o;
 
-        if (id != that.id) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (pricePerUnit != null ? !pricePerUnit.equals(that.pricePerUnit) : that.pricePerUnit != null) return false;
 
@@ -58,27 +56,29 @@ public class ProductEntity {
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (pricePerUnit != null ? pricePerUnit.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "productByProductId")
-    public Collection<FactoryProductEntity> getFactoryProductsById() {
-        return factoryProductsById;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private Set<FactoryEntity>factories;
 
-    public void setFactoryProductsById(Collection<FactoryProductEntity> factoryProductsById) {
-        this.factoryProductsById = factoryProductsById;
-    }
+    public Set<FactoryEntity> getFactoriesById(){
+        return factories;
+    };
+     public void setFactoriesById(Set<FactoryEntity>factories){
+         this.factories=factories;
+     }
 
-    @OneToMany(mappedBy = "productByIdProduct")
-    public Collection<OrderingEntity> getOrderingsById() {
-        return orderingsById;
-    }
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private Set<OrderingEntity> orderings;
 
-    public void setOrderingsById(Collection<OrderingEntity> orderingsById) {
-        this.orderingsById = orderingsById;
+    public Set<OrderingEntity> getOrderingsById(){
+        return orderings;
+    };
+    public void setOrderingsById(Set<OrderingEntity>orderings){
+        this.orderings=orderings;
     }
 }
