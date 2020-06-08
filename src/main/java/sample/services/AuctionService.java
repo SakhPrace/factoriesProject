@@ -3,11 +3,8 @@ package sample.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sample.entities.AuctionEntity;
-import sample.entities.FactoryEntity;
-import sample.entities.OrderingEntity;
 import sample.repositories.AuctionRepository;
-import sample.repositories.FactoryRepository;
+
 @Service
 public class AuctionService implements AuctionServiceInterface {
 

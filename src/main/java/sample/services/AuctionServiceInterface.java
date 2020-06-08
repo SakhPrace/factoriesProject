@@ -1,7 +1,5 @@
 package sample.services;
 
-import sample.entities.AuctionEntity;
-
 public interface AuctionServiceInterface {
 
     AuctionEntity findEntityById(int id);
