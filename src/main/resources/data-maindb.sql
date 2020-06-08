@@ -21,18 +21,15 @@ INSERT INTO transporter(id, name, price_per_unit,password) VALUES(4, 'CCC4', 1, 
 INSERT INTO transporter(id, name, price_per_unit,password) VALUES(5, 'CCC5', 1, '$2y$16$IDh1wV7Fk..Yvx..UGXtdeRAtXz7dYXPBfGgZaiyJQ0gOFq5UAAwK'); /*pT5*/
 
 DELETE FROM maindb.ordering;
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(1, 1, 2, 1, 3000);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(2, 1, 3, null, null);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(3, 2, 1, 5, 4000);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(4, 3, 5, 3, 6000);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(5, 4, 2, 2, 3500);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(6, 5, 2, null, null);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(7, 5, 3, 4, 1000);
-INSERT INTO ordering(id, id_factory, id_product, id_transport, price) VALUES(8, 3, 2, 1, 2500);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(1, 1, 2, 1, 3000,true);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(2, 1, 3, null, null,true);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(3, 2, 1, 5, 4000,false);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(4, 3, 5, 3, 6000,true);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(5, 4, 2, 2, 3500,false);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(6, 5, 2, null, null,true);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(7, 5, 3, 4, 1000,false);
+INSERT INTO ordering(id, id_factory, id_product, id_transport, price,accepted) VALUES(8, 3, 2, 1, 2500,true);
 
-DELETE FROM maindb.auction;
-INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(1, 2, 3800, 1);
-INSERT INTO auction(id, id_order, offered_price, id_transporter) VALUES(2, 6, 3000, 3);
 
 DELETE FROM maindb.roads_backing;
 INSERT INTO roads_backing(origid, destid, weight) VALUES (1,2,1), (2,3,3), (3,4,2), (4,5,3), (2,4,8), (2,5,7),(3,5,1),(2,1,1), (3,2,3), (4,3,2), (5,4,3), (4,2,8), (5,2,7),(5,3,1);
