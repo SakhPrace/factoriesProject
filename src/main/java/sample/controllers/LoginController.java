@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import sample.JavaFxApplication;
 import sample.Security;
 import sample.services.FactoryServiceInterface;
-import sample.services.TransportOperatorServiceInterface;
+//import sample.services.TransportOperatorServiceInterface;
 import sample.services.TransporterServiceInterface;
 
 @Component
@@ -77,7 +77,7 @@ public class LoginController {
             }
         } else if(!radioButtonFactory.isSelected() && radioButtonTransporter.isSelected()) {
             try {
-                Boolean passwordCheck = security.passwordCheckForTransporter(transportOperatorService, textFieldUsername.getText(), passwordField.getText());
+                Boolean passwordCheck = security.passwordCheckForTransporter(transporterService, textFieldUsername.getText(), passwordField.getText());
                 if (passwordCheck) {
                     FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
                     Parent root = fxWeaver.loadView(TransporterController.class);
@@ -92,6 +92,8 @@ public class LoginController {
                 showAlertWithoutHeaderText();
                 System.out.println(e.fillInStackTrace());
             }
+
+
         }
 
     }

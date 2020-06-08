@@ -1,28 +1,29 @@
 package sample.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "factory", schema = "maindb", catalog = "")
 public class FactoryEntity {
-    private Integer id;
-    private String name;
-    private String password;
-    private Integer exportid;
-
     @Id
+    @GeneratedValue
     @Column(name = "id", nullable = false)
-    public Integer getId() {
+    private int id;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Basic
     @Column(name = "name", nullable = true, length = 255)
+    private String name;
+
     public String getName() {
         return name;
     }
@@ -33,6 +34,8 @@ public class FactoryEntity {
 
     @Basic
     @Column(name = "password", nullable = true, length = 255)
+    private String password;
+
     public String getPassword() {
         return password;
     }
@@ -41,48 +44,58 @@ public class FactoryEntity {
         this.password = password;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name="exportid",nullable = false)
-    private ProductEntity product;
+    @Basic
+    @Column(name = "exportid", nullable = false)
+    private int exportId;
 
-    public ProductEntity getProductById() {
-        return product;
+    public int getExportId() {
+        return exportId;
     }
 
-    public void setProductById(ProductEntity product) {
-        this.product=product;
+    public void setExportId(int exportId) {
+        this.exportId= exportId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         FactoryEntity that = (FactoryEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
+        return id == that.id &&
+                exportId == that.exportId &&
+                name.equals(that.name) &&
+                password.equals(that.password);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, password, exportId);
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "factory")
+    /*
+    @ManyToOne(targetEntity=ProductEntity.class, fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name="exportid",nullable = false)
+    private ProductEntity product;
+
+    public ProductEntity getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductEntity product) {
+        this.product=product;
+    }
+
+    @OneToMany(targetEntity=OrderingEntity.class, fetch = FetchType.EAGER, mappedBy = "factory")
     private Set<OrderingEntity> orderings;
 
-    public Set<OrderingEntity> getOrderingsById(){
+    public Set<OrderingEntity> getOrderings(){
         return orderings;
     };
-    public void setOrderingsById(Set<OrderingEntity>orderings){
+
+    public void setOrderings(Set<OrderingEntity>orderings){
         this.orderings=orderings;
     }
+
+ */
 
 }

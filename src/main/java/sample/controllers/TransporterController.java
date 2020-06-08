@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -17,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import sample.JavaFxApplication;
 import sample.entities.OrderingEntity;
+import sample.entities.TransporterEntity;
 import sample.services.*;
 
 import java.util.ArrayList;
@@ -35,6 +38,8 @@ public class TransporterController {
     @FXML
     private ListView listViewUnacceptedOrders;
     @FXML
+    private ListView listViewBidedOrders;
+    @FXML
     private Label labelAcceptedOrders;
     @FXML
     private Label labelUnacceptedOrders;
@@ -49,18 +54,19 @@ public class TransporterController {
     ProductServiceInterface productService;
 
     @Autowired
-    TransporterServiceInterface transportOperatorService;
-
-    @Autowired
-    AuctionServiceInterface auctionService;
+    TransporterServiceInterface transporterService;
 
     private ObservableList<String> forListViewAcceptedOrders = FXCollections.observableArrayList();
 
     private ObservableList<String> forListViewUnacceptedOrders = FXCollections.observableArrayList();
 
+    private ObservableList<String> forListViewBidedOrders = FXCollections.observableArrayList();
+
     private List<OrderingEntity> orderingEntitiesAccepted = new ArrayList<>();
 
     private List<OrderingEntity> orderingEntitiesUnaccepted = new ArrayList<>();
+
+    private List<OrderingEntity> orderingEntitiesBided = new ArrayList<>();
 
     private Stage stageThis;
 
@@ -85,25 +91,113 @@ public class TransporterController {
     private void updateListViewAcceptedOrders() {
         forListViewAcceptedOrders = FXCollections.observableArrayList();
         orderingEntitiesAccepted = new ArrayList<>();
-        orderingEntities = orderingService.findEntitiesByFactoryIdWithTransport(transporterEntityThis.getId());
-        System.out.println("orderingEnteties count = " + orderingEntities.size());
+        orderingEntities = orderingService.findEntitiesByTransporterIdAccepted(transporterEntityThis.getId());
+        listViewAcceptedOrders.setItems(forListViewAcceptedOrders);
+        int k = 0;
         for (OrderingEntity orderingEntity : orderingEntities) {
-            forListViewAcceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + orderingEntity.getProductByIdProduct().getName());
+            k++;
+            forListViewAcceptedOrders.add(String.valueOf(k) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
             orderingEntitiesAccepted.add(orderingEntity);
         }
         listViewAcceptedOrders.setItems(forListViewAcceptedOrders);
     }
 
     private void updateListViewUnacceptedOrders() {
-        orderingEntities = orderingService.findEntitiesByFactoryIdWithoutTransport(transporterEntityThis.getId());
         forListViewUnacceptedOrders = FXCollections.observableArrayList();
         orderingEntitiesUnaccepted = new ArrayList<>();
-        System.out.println("orderingEnteties count = " + orderingEntities.size());
+        orderingEntities = orderingService.findEntitiesWithoutIdTransporterUnaccepted(transporterEntityThis.getId());
+        listViewUnacceptedOrders.setItems(forListViewUnacceptedOrders);
+        System.out.println(orderingEntities.size());
+        int k = 0;
         for (OrderingEntity orderingEntity : orderingEntities) {
-            forListViewUnacceptedOrders.add(String.valueOf(orderingEntity.getId()) + ". " + orderingEntity.getProductByIdProduct().getName());
+            k++;
+            forListViewUnacceptedOrders.add(String.valueOf(k) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
             orderingEntitiesUnaccepted.add(orderingEntity);
         }
         listViewUnacceptedOrders.setItems(forListViewUnacceptedOrders);
+    }
+
+    private void updateListViewBidedOrders() {
+        forListViewBidedOrders = FXCollections.observableArrayList();
+        orderingEntitiesBided= new ArrayList<>();
+        orderingEntities = orderingService.findEntitiesByTransporterIdUnaccepted(transporterEntityThis.getId());
+        listViewBidedOrders.setItems(forListViewBidedOrders);
+        int k = 0;
+        for (OrderingEntity orderingEntity : orderingEntities) {
+            k++;
+            forListViewBidedOrders.add(String.valueOf(k) + ". " + productService.findEntityById(orderingEntity.getIdProduct()).getName());
+            orderingEntitiesBided.add(orderingEntity);
+        }
+        listViewBidedOrders.setItems(forListViewBidedOrders);
+    }
+
+    @FXML
+    private void listViewAcceptedOrdersOnMouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+                if (listViewAcceptedOrders.getItems().size() != 0) {
+                    int orderIdFromListView = listViewAcceptedOrders.getSelectionModel().getSelectedIndex();
+                    if (orderIdFromListView <= orderingEntitiesAccepted.size()) {
+                        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                        Parent root = fxWeaver.loadView(OrderingTransporterController.class);
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setTitle(String.valueOf(orderingEntitiesAccepted.get(orderIdFromListView).getId()) + String.valueOf(transporterEntityThis.getId()));
+                        stage.setScene(scene);
+                        stage.showAndWait();
+                        updateListViewAcceptedOrders();
+                        updateListViewUnacceptedOrders();
+                        updateListViewBidedOrders();
+                    }
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void listViewUnacceptedOrdersOnMouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+                if (listViewUnacceptedOrders.getItems().size() != 0) {
+                    int orderIdFromListView = listViewUnacceptedOrders.getSelectionModel().getSelectedIndex();
+                    if (orderIdFromListView <= orderingEntitiesUnaccepted.size()) {
+                        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                        Parent root = fxWeaver.loadView(OrderingTransporterController.class);
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setTitle(String.valueOf(orderingEntitiesUnaccepted.get(orderIdFromListView).getId()) + String.valueOf(transporterEntityThis.getId()));
+                        stage.setScene(scene);
+                        stage.showAndWait();
+                        updateListViewAcceptedOrders();
+                        updateListViewUnacceptedOrders();
+                        updateListViewBidedOrders();
+                    }
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void listViewBidedOrdersOnMouseClicked(MouseEvent mouseEvent) {
+        if (mouseEvent.getButton().equals(MouseButton.PRIMARY)) {
+            if (mouseEvent.getClickCount() == 2) {
+                if (listViewBidedOrders.getItems().size() != 0) {
+                    int orderIdFromListView = listViewBidedOrders.getSelectionModel().getSelectedIndex();
+                    if (orderIdFromListView <= orderingEntitiesBided.size()) {
+                        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+                        Parent root = fxWeaver.loadView(OrderingTransporterController.class);
+                        Scene scene = new Scene(root);
+                        Stage stage = new Stage();
+                        stage.setTitle(String.valueOf(orderingEntitiesBided.get(orderIdFromListView).getId()) + String.valueOf(transporterEntityThis.getId()));
+                        stage.setScene(scene);
+                        stage.showAndWait();
+                        updateListViewAcceptedOrders();
+                        updateListViewUnacceptedOrders();
+                        updateListViewBidedOrders();
+                    }
+                }
+            }
+        }
     }
 
     @FXML
@@ -114,9 +208,10 @@ public class TransporterController {
                 newScene.windowProperty().addListener((observableWindow, oldWindow, newWindow) -> {
                     if (oldWindow == null && newWindow != null) {
                         stageThis = (Stage) this.anchorPane.getScene().getWindow();
-                        transporterEntityThis = transportOperatorService.findEntityByName(stageThis.getTitle());
+                        transporterEntityThis = transporterService.findEntityByName(stageThis.getTitle());
                         updateListViewAcceptedOrders();
                         updateListViewUnacceptedOrders();
+                        updateListViewBidedOrders();
                         ((Stage) newWindow).maximizedProperty().addListener((a, b, c) -> {
                             if (c) {
                                 System.out.println("I am maximized!");

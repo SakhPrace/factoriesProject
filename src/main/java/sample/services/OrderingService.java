@@ -20,12 +20,24 @@ public class OrderingService implements OrderingServiceInterface {
         return orderingEntity;
     }
 
-    public List<OrderingEntity> findEntitiesByFactoryIdWithTransport(Integer factoryId) {
-        return repository.getOrderingEntitiesByFactoryIdWithTransport(factoryId);
+    public List<OrderingEntity> findEntitiesByFactoryIdAccepted(int idFactory) {
+        return repository.findOrderingEntitiesByIdFactoryAndAcceptedTrue(idFactory);
     }
 
-    public List<OrderingEntity> findEntitiesByFactoryIdWithoutTransport(Integer factoryId) {
-        return repository.getOrderingEntitiesByFactoryIdWithoutTransport(factoryId);
+    public List<OrderingEntity> findEntitiesByFactoryIdUnaccepted(int idFactory) {
+        return repository.findOrderingEntitiesByIdFactoryAndAcceptedFalse(idFactory);
+    }
+
+    public List<OrderingEntity> findEntitiesByTransporterIdAccepted(int idTransporter) {
+        return repository.findOrderingEntitiesByIdTransporterAndAcceptedTrue(idTransporter);
+    }
+
+    public List<OrderingEntity> findEntitiesByTransporterIdUnaccepted(int idTransporter) {
+        return repository.findOrderingEntitiesByIdTransporterAndAcceptedFalse(idTransporter);
+    }
+
+    public List<OrderingEntity> findEntitiesWithoutIdTransporterUnaccepted(int idTransporter) {
+        return repository.findAllOrderingEntitiesWithoutIdTransporterAndAcceptedFalse(idTransporter);
     }
 
     @Override
