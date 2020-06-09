@@ -33,6 +33,10 @@ public class OrderingTransporterController {
     @FXML
     private Label labelPriceValue;
     @FXML
+    private Label labelSupplierName;
+    @FXML
+    private Label labelDistance;
+    @FXML
     private Button buttonSetPrice;
     @FXML
     private TextField textFieldSetPrice;
@@ -101,8 +105,10 @@ public class OrderingTransporterController {
                         stageThis.setTitle(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
                         labelMaterial.setText(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
                         labelCustomer.setText(factoryService.findEntityById(orderingEntityThis.getIdFactory()).getName());
+                        labelSupplierName.setText(factoryService.findEntityById(orderingEntityThis.getIdFactoryFrom()).getName());
                         labelPriceValue.setText(String.valueOf(orderingEntityThis.getPrice()));
-                        accepted=orderingEntityThis.getAccepted();
+                        //TODO
+                        accepted=orderingEntityThis.isAccepted();
                         if (accepted) {
                             labelTransporter.setText(transporterService.findEntityById(orderingEntityThis.getIdTransporter()).getName());
                             buttonSetPrice.setVisible(false);

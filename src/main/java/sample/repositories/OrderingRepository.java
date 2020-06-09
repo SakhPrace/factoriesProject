@@ -23,4 +23,6 @@ public interface OrderingRepository extends CrudRepository<OrderingEntity, Integ
     @Query("SELECT e FROM OrderingEntity e WHERE e.idTransporter <> :idTransporter AND e.accepted = false ")
     List<OrderingEntity> findAllOrderingEntitiesWithoutIdTransporterAndAcceptedFalse(@Param("idTransporter") int idTransporter);
 
+
+
 }

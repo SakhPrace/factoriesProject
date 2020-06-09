@@ -35,7 +35,7 @@ public class OrderingEntity {
     @Column(name = "accepted", nullable = true)
     private boolean accepted;
 
-    public boolean getAccepted() {
+    public boolean isAccepted() {
         return accepted;
     }
 
@@ -68,15 +68,15 @@ public class OrderingEntity {
     }
 
     @Basic
-    @Column(name = "id_transporter", nullable = false)
-    private int idTransporter;
+    @Column(name = "id_transporter", nullable = true)
+    private Integer idTransporter;
 
-    public int getIdTransporter() {
+    public Integer getIdTransporter() {
         return idTransporter;
     }
 
-    public void setIdTransporter(int idTransporter) {
-        this.idTransporter= idTransporter;
+    public void setIdTransporter(Integer idTransporter) {
+        this.idTransporter = idTransporter;
     }
 
     @Basic

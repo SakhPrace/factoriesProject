@@ -16,7 +16,7 @@
       <Label fx:id="labelPassword" layoutX="53.0" layoutY="121.0" text="Password" />
       <Button fx:id="buttonLogin" layoutX="216.0" layoutY="161.0" mnemonicParsing="false" onAction="#buttonLoginOnAction" text="Login" />
       <RadioButton fx:id="radioButtonFactory" layoutX="57.0" layoutY="34.0" mnemonicParsing="false" onAction="#radioButtonFactoryOnAction" selected="true" text="As Factory" />
-      <Label layoutX="95.0" layoutY="6.0" text="Please, login is system" />
+      <Label layoutX="95.0" layoutY="6.0" text="Please, login in system" />
       <PasswordField fx:id="passwordField" layoutX="119.0" layoutY="116.0" promptText="Password" />
    </children>
 </AnchorPane>

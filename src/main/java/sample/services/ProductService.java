@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 @Service
 public class ProductService implements ProductServiceInterface{
 
@@ -16,6 +18,15 @@ public class ProductService implements ProductServiceInterface{
     public ProductEntity findEntityById(int id) {
         ProductEntity productEntity = repository.findById(id).get();
         return productEntity;
+    }
+
+
+    public List<ProductEntity> findAllEntities() {
+        return repository.findAllEntities();
+    }
+
+    public ProductEntity findEntityByName(String name) {
+        return repository.findProductEntityByName(name);
     }
 
     @Override

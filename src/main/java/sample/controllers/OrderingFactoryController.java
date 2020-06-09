@@ -30,9 +30,14 @@ public class OrderingFactoryController {
     @FXML
     private Label labelPriceValue;
     @FXML
+    private Label labelSupplierName;
+    @FXML
     private Button buttonAcceptOrder;
     @FXML
     private Button buttonDeleteOrder;
+    @FXML
+    private Label labelDistance;
+
 
     @Autowired
     FactoryServiceInterface factoryService;
@@ -79,8 +84,10 @@ public class OrderingFactoryController {
                         stageThis.setTitle(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
                         labelMaterial.setText(productService.findEntityById(orderingEntityThis.getIdProduct()).getName());
                         labelCustomer.setText(factoryService.findEntityById(orderingEntityThis.getIdFactory()).getName());
+                        labelSupplierName.setText(factoryService.findEntityById(orderingEntityThis.getIdFactoryFrom()).getName());
                         labelPriceValue.setText(String.valueOf(orderingEntityThis.getPrice()));
-                        accepted=orderingEntityThis.getAccepted();
+                        //TODO
+                        accepted=orderingEntityThis.isAccepted();
                         if (accepted) {
                             labelTransporter.setText(transporterService.findEntityById(orderingEntityThis.getIdTransporter()).getName());
                             buttonAcceptOrder.setVisible(false);

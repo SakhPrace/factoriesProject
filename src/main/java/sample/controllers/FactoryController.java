@@ -70,7 +70,15 @@ public class FactoryController {
 
     @FXML
     private void buttonCreateOrderOnAction(ActionEvent event) {
-
+        FxWeaver fxWeaver = JavaFxApplication.getFxWeaver();
+        Parent root = fxWeaver.loadView(OrderingCreateController.class);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle(factoryEntityThis.getName());
+        stage.setScene(scene);
+        stage.showAndWait();
+        updateListViewAcceptedOrders();
+        updateListViewUnacceptedOrders();
     }
 
     @FXML
