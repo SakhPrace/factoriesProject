@@ -91,6 +91,19 @@ public class OrderingEntity {
         this.idFactoryFrom= idFactoryFrom;
     }
 
+    @Basic
+    @Column(name = "distance", nullable = false)
+    private Integer distance;
+
+    public Integer getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

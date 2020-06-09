@@ -24,14 +24,14 @@ INSERT INTO maindb.transporter(id, name, price_per_unit, password) VALUES(4, 'CC
 INSERT INTO maindb.transporter(id, name, price_per_unit, password) VALUES(5, 'CCC5', 1, '$2y$16$IDh1wV7Fk..Yvx..UGXtdeRAtXz7dYXPBfGgZaiyJQ0gOFq5UAAwK'); /*pT5*/
 
 DELETE FROM maindb.ordering;
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(1, 1, 2, 1, 3000, true, 4);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(2, 1, 3, 2, 3000, true, 3);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(3, 1, 1, 2, 4000, false, 2);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(4, 3, 5, 3, 6000, true, 1);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(5, 4, 2, 2, 3500, false, 4);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(6, 5, 2, 5, 7000, true, 4);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(7, 5, 3, 4, 1000, false, 3);
-INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from) VALUES(8, 3, 2, 1, 2500, true, 4);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(1, 1, 2, 1, 3000, true, 4,3);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(2, 1, 3, 2, 3000, true, 3,10);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(3, 1, 1, 2, 4000, false, 2,7);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(4, 3, 5, 3, 6000, true, 1,5);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(5, 4, 2, 2, 3500, false, 4,7);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(6, 5, 2, 5, 7000, true, 4,12);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(7, 5, 3, 4, 1000, false, 3,6);
+INSERT INTO maindb.ordering(id, id_factory, id_product, id_transporter, price, accepted, id_factory_from,distance) VALUES(8, 3, 2, 1, 2500, true, 4,8);
 
 
 DELETE FROM maindb.roads_backing;
