@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="168.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.OrderingTransporterController">
+<AnchorPane fx:id="anchorPane" prefHeight="217.0" prefWidth="325.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controllers.OrderingTransporterController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Material:" />
       <Label layoutX="14.0" layoutY="39.0" prefHeight="17.0" prefWidth="72.0" text="Customer" />
@@ -14,8 +14,12 @@
       <Label fx:id="labelCustomer" layoutX="110.0" layoutY="39.0" prefHeight="17.0" prefWidth="157.0" />
       <Label fx:id="labelTransporter" layoutX="110.0" layoutY="63.0" prefHeight="17.0" prefWidth="157.0" />
       <Label fx:id="labelPriceName" layoutX="14.0" layoutY="89.0" prefHeight="17.0" prefWidth="72.0" text="Price" />
-      <Button fx:id="buttonSetPrice" layoutX="189.0" layoutY="122.0" mnemonicParsing="false" onAction="#buttonSetPriceOnAction" prefHeight="25.0" prefWidth="113.0" text="Set My Price" />
-      <Label fx:id="labelPriceValue" layoutX="110.0" layoutY="90.0" prefHeight="16.0" prefWidth="140.0" />
-      <TextField fx:id="textFieldSetPrice" layoutX="4.0" layoutY="122.0" onKeyTyped="#textFieldSetPriceOnKeyTyped" prefHeight="26.0" prefWidth="140.0" />
+      <Button fx:id="buttonSetPrice" layoutX="194.0" layoutY="180.0" mnemonicParsing="false" onAction="#buttonSetPriceOnAction" prefHeight="25.0" prefWidth="113.0" text="Set My Price" />
+      <Label fx:id="labelPriceValue" layoutX="110.0" layoutY="90.0" prefHeight="16.0" prefWidth="157.0" />
+      <TextField fx:id="textFieldSetPrice" layoutX="16.0" layoutY="180.0" onKeyTyped="#textFieldSetPriceOnKeyTyped" prefHeight="26.0" prefWidth="140.0" />
+      <Label layoutX="14.0" layoutY="114.0" text="Supplier" />
+      <Label fx:id="labelSupplierName" layoutX="110.0" layoutY="114.0" prefHeight="16.0" prefWidth="157.0" />
+      <Label layoutX="16.0" layoutY="142.0" text="Distance" />
+      <Label fx:id="labelDistance" layoutX="110.0" layoutY="142.0" prefHeight="16.0" prefWidth="157.0" />
    </children>
 </AnchorPane>

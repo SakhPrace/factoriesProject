@@ -3,7 +3,7 @@ CREATE DATABASE if not exists maindb;
 
 CREATE TABLE IF NOT EXISTS product (
 id int not null AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(255),
+name VARCHAR(255) not null UNIQUE,
 price_per_unit int
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS ordering (
 id int not null AUTO_INCREMENT PRIMARY KEY,
 id_factory int not null,
 id_product int not null,
-id_transporter int not null,
+id_transporter integer,
 price integer,
 accepted boolean,
 id_factory_from int not null,
@@ -63,4 +63,8 @@ data_table='roads_backing' origid='origid' destid='destid' weight='weight';
 
 DROP PROCEDURE IF EXISTS maindb.Shortest_Way;
 create procedure maindb.Shortest_Way (IN origidIN BIGINT UNSIGNED, IN destidIN BIGINT UNSIGNED)
-    SELECT GROUP_CONCAT(linkid ORDER BY seq) AS path FROM maindb.roads_graph WHERE latch='dijkstras' AND origid=origidIN AND destid=destidIN;
+    SELECT GROUP_CONCAT(linkid ORDER BY seq) FROM maindb.roads_graph WHERE latch='dijkstras' AND origid=origidIN AND destid=destidIN;
+
+DROP PROCEDURE IF EXISTS maindb.Shortest_Way_Weight;
+create procedure maindb.Shortest_Way_Weight (IN origidIN BIGINT UNSIGNED, IN destidIN BIGINT UNSIGNED)
+    SELECT weight FROM maindb.roads_graph WHERE latch='dijkstras' AND destid = destidIN AND linkid = origidIN;
