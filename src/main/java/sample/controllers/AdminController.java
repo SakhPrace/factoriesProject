@@ -62,6 +62,8 @@ public class AdminController {
     private SplitMenuButton splitMenuButtonSetProductDelete;
     @FXML
     private SplitMenuButton splitMenuButtonSetTransporterDelete;
+    @FXML
+    private CheckBox checkBoxDelete;
 
     private Stage stageThis;
 
@@ -91,6 +93,17 @@ public class AdminController {
 
     private ProductEntity productEntityForDelete;
 
+
+    @FXML
+    private void checkBoxDeleteOnAction(ActionEvent event) {
+        if (checkBoxDelete.isSelected()) {
+            checkBoxDelete.setSelected(false);
+            splitMenuButtonSetProductDelete.setDisable(true);
+        }else {
+            checkBoxDelete.setSelected(true);
+            splitMenuButtonSetProductDelete.setDisable(false);
+        }
+    }
 
     @FXML
     private void buttonDeleteTransporterOnAction(ActionEvent event) {
@@ -188,6 +201,8 @@ public class AdminController {
 
     @FXML
     private void initialize() {
+        checkBoxDelete.setSelected(false);
+        splitMenuButtonSetProductDelete.setDisable(true);
         anchorPane.sceneProperty().addListener((observableScene, oldScene, newScene) -> {
             if (oldScene == null && newScene != null) {
                 // scene is set for the first time. Now its the time to listen stage changes.
