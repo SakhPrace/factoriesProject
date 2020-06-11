@@ -5,8 +5,8 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "factory", schema = "maindb", catalog = "")
-public class FactoryEntity {
+@Table(name = "transporter", schema = "maindb", catalog = "")
+public class TransporterEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
@@ -43,58 +43,32 @@ public class FactoryEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "exportid", nullable = false)
-    private int exportId;
-
-    public int getExportId() {
-        return exportId;
-    }
-
-    public void setExportId(int exportId) {
-        this.exportId= exportId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FactoryEntity that = (FactoryEntity) o;
+        TransporterEntity that = (TransporterEntity) o;
         return id == that.id &&
-                exportId == that.exportId &&
                 name.equals(that.name) &&
                 password.equals(that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, password, exportId);
+        return Objects.hash(id, name, password);
     }
 
     /*
-    @ManyToOne(targetEntity=ProductEntity.class, fetch = FetchType.EAGER,optional = false)
-    @JoinColumn(name="exportid",nullable = false)
-    private ProductEntity product;
-
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductEntity product) {
-        this.product=product;
-    }
-
-    @OneToMany(targetEntity=OrderingEntity.class, fetch = FetchType.EAGER, mappedBy = "factory")
+    @OneToMany(targetEntity=OrderingEntity.class, fetch = FetchType.EAGER, mappedBy = "transporter")
     private Set<OrderingEntity> orderings;
 
-    public Set<OrderingEntity> getOrderings(){
+    public Set<OrderingEntity> getOrderingsById(){
         return orderings;
     };
 
-    public void setOrderings(Set<OrderingEntity>orderings){
+    public void setOrderingsById(Set<OrderingEntity>orderings){
         this.orderings=orderings;
     }
 
  */
-
 }
