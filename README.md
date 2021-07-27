@@ -1,4 +1,7 @@
 # factoriesProject
+---
+Учебный проект.
+
 Для работы этого чуда в папке src/main/resources/  создать файл application.properties со следующим содержимым:
 
 spring.main.banner-mode=off
